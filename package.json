@@ -1,5 +1,5 @@
 {
-  "name": "Quiz bot",
+  "name": "Quiz",
   "version": "1.0.0",
   "description": "Telegram bot API app",
   "main": "app.js",
