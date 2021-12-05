@@ -1,0 +1,12 @@
+{
+  "name": "Quiz bot",
+  "version": "1.0.0",
+  "description": "Telegram bot API app",
+  "main": "app.js",
+  "author": "deainya",
+  "license": "?",
+  "dependencies": {
+    "express": "^4.13.4",
+    "telegraf": "^3.6.1"
+  }
+}
