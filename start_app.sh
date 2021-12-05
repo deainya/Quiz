@@ -8,7 +8,7 @@ fi
 cd $dirName
 if [ ! -d ".git" ]; then
   sudo git init
-  sudo git remote add origin https://github.com/adeavoice/$dirName
+  sudo git remote add origin https://github.com/deainya/$dirName
   echo "Finished 'git init' and creation of origin in $dirName folder"
 fi
 sudo git pull origin master
