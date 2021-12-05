@@ -31,4 +31,5 @@ app.catch((err) => {
 });
 
 // Запускаем poll обработчик бота
-app.startpolling();
+app.startPolling();
+
