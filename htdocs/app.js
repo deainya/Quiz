@@ -16,10 +16,7 @@ app.help((ctx) => ctx.reply(`Hello, ${ctx.message.from.username}.\nI can say Hel
 
 app.command('yo', (ctx) => {
     console.log('yo', ctx.from);
-    ctx.reply('Привет, меня зовут c3po...\n'+
-        'Я знаю всё о школьном расписании.\n'+
-        'Что бы вы хотели узнать?'
-    );
+    ctx.reply('Привет');
 });
 
 // Reaction on new user joined to the chat
