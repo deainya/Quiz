@@ -63,7 +63,7 @@ bot.on('text', (ctx) => {
             step++;
         }
     } else {
-        console.log('Step (last): 'step);
+        console.log('Step (last): '+step.toString());
     }
 })
 
