@@ -6,6 +6,7 @@ const { Extra, Markup } = Telegraf;
 
 // Квиз бот
 const bot = new Telegraf(config.bot_token);
+console.log('started');
 
 // Реакция на must have команды
 bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Cloud Function`))
