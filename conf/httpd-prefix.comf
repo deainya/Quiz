@@ -1,1 +1,1 @@
-Include "/opt/bitnami/apps/Quiz/conf/httpd-app.conf"
+Include "/home/deain/apps/Quiz/conf/httpd-app.conf"

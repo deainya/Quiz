@@ -1,4 +1,4 @@
-#!/bin/bash  
+#!/bin/bash
 dirName=${PWD##*/}
 cd ../../apps
 if [ ! -d "$dirName" ]; then
@@ -15,6 +15,6 @@ sudo git pull origin master
 echo "Finished 'git pull'"
 sudo npm install
 echo "Finished 'npm install'"
-node /opt/bitnami/nodejs/bin/forever stop htdocs/app.js
-node /opt/bitnami/nodejs/bin/forever start htdocs/app.js
+node forever stop htdocs/app.js
+node forever start htdocs/app.js
 echo "App sould be forever started on server. Check it out"

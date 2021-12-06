@@ -3,33 +3,29 @@ const config = require('./config');
 
 const { Telegraf } = require('telegraf');
 const { Extra, Markup } = Telegraf;
-const session = require('telegraf/session');
-//const cron = require('node-cron');
 
-// Quiz bot
-const app = new Telegraf(config.bot_token);
-app.use(session());
+// Квиз бот
+const bot = new Telegraf(config.bot_token);
 
-// Reaction on must have commands
-app.start((ctx) => ctx.reply(`Hello. \nMy name Quiz \nI'm working on Cloud Function in the Yandex.Cloud.`))
-app.help((ctx) => ctx.reply(`Hello, ${ctx.message.from.username}.\nI can say Hello and nothing more`))
+// Реакция на must have команды
+bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Cloud Function`))
+bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
+bot.command('quizit', (ctx) => {
+    ctx.reply('Привет...\n'+
+        'Ключ на старт и от винта!'
+    );
+})
 
-app.command('yo', (ctx) => {
-    console.log('yo', ctx.from);
-    ctx.reply('Привет');
-});
-
-// Reaction on new user joined to the chat
-app.on('new_chat_members', (ctx) => {
+// Реакция на новых пользователей в группе
+bot.on('new_chat_members', (ctx) => {
     console.log(ctx.message.new_chat_members);
     ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать в чат вашей команды!`);
-});
+})
 
 // Ловим ошибки приложеньки
-app.catch((err) => {
+bot.catch((err) => {
     console.log('Oops', err);
-});
+})
 
 // Запускаем poll обработчик бота
-app.startPolling();
-
+bot.startPolling();
