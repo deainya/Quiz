@@ -73,10 +73,11 @@ bot.on('text', (ctx) => {
                 } else if (check1) {
                     //Верный ответ
                     ctx.reply(data.right[getRandom(0, 13)]);
-                    qRs[i].t1.push(Date.now());
-                    qRs[i].t2.push(qRs[i].t1);
                     qRs[i].trys[qRs[i].step]++;
-                    ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step]-qRs[i].trys[qRs[i].step]).toString());
+                    ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString());
+                    qRs[i].t2.push(qRs[i].t1);
+                    qRs[i].t1.push(Date.now());
+                    ctx.replyWithMarkdown(data.descs[qRs[i].step+1]);
                     qRs[i].step++;
                     //setImmediate((arg) => {
                     //    console.log(`executing immediate: ${arg}`);
