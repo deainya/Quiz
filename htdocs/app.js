@@ -9,7 +9,7 @@ const { Extra, Markup } = Telegraf;
 const bot = new Telegraf(config.bot_token);
 
 // Объявляем переменные
-var qRs: [
+var qRs = [
         {chat: -1001742053790, step: 0, t1:[], t2:[], trys:[], pts:[], total: 0},
         {chat: -671590480, step:0, t1:[], t2:[], trys:[], pts:[], total: 0}
     ];
