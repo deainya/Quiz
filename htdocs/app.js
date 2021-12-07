@@ -81,18 +81,18 @@ bot.on('text', (ctx) => {
                     //Верный ответ
                     ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                     qRs[i].trys[qRs[i].step]++;
-                    sleep(100);
+                    await sleep(250);
                     ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString());
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].t1.push(Date.now());
                     qRs[i].step++;
-                    sleep(100);
+                    await sleep(250);
                     ctx.replyWithMarkdown(data.descs[qRs[i].step]);
                 } else if (check0 && !check2) {
                     //Неверный ответ
                     ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
                     qRs[i].trys[qRs[i].step]++;
-                    sleep(100);
+                    await sleep(250);
                     ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step]-qRs[i].trys[qRs[i].step]).toString());
                 }
             }
