@@ -62,27 +62,26 @@ bot.on('text', (ctx) => {
                 let check2 = data.tasks[qRs[i].step].tryouts == 0;
                 if (check1 && check2) {
                     //Вывод следующего задания
-                    ctx.replyWithMarkdown(data.descs[qRs[i].step+1]);
                     qRs[i].t1.push(Date.now());
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].step++;
+                    setImmediate(ctx.replyWithMarkdown(data.descs[qRs[i].step]));
                     //ctx.reply('Chat: '+ctx.message.chat.id.toString()+
                     //          ' step: '+step.toString()+
                     //          ' time: '+toMin(dnow-dstart).toString()+
                     //          ' points: '+tasks[step].points.toString());
                 } else if (check1) {
                     //Верный ответ
-                    ctx.reply(data.right[getRandom(0, 13)]);
+                    ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                     qRs[i].trys[qRs[i].step]++;
-                    ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString());
-                    qRs[i].t2.push(qRs[i].t1);
-                    qRs[i].t1.push(Date.now());
-                    ctx.replyWithMarkdown(data.descs[qRs[i].step+1]);
-                    qRs[i].step++;
-                    //setImmediate((arg) => {
-                    //    console.log(`executing immediate: ${arg}`);
-                    //}, 'so immediate');
-                } else if (check0) {
+                    setImmediate(() => {
+                        ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString());
+                        qRs[i].t2.push(qRs[i].t1);
+                        qRs[i].t1.push(Date.now());
+                        qRs[i].step++;
+                    });
+                    setImmediate(ctx.replyWithMarkdown(data.descs[qRs[i].step]));
+                } else if (check0 && !check2) {
                     //Неверный ответ
                     ctx.reply(data.wrong[getRandom(0, 6)]);
                     qRs[i].trys[qRs[i].step]++;
