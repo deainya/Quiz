@@ -24,6 +24,13 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+// Sleep
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 // Реакция на must have команды
 bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Cloud Function`))
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
