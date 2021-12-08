@@ -56,7 +56,7 @@ bot.on('new_chat_members', (ctx) => {
 })
 
 // Реакция на текстовые сообщения
-bot.on('text', (ctx) => {
+bot.on('text', async (ctx) => {
     var c = ctx.message.chat;
     for (var i = 0; i < qRs.length; i++) {
         if (qRs[i].chat == c.id) {
@@ -73,7 +73,7 @@ bot.on('text', (ctx) => {
                     qRs[i].t1.push(Date.now());
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].step++;
-                    ctx.replyWithMarkdown(data.descs[qRs[i].step]);
+                    await ctx.replyWithMarkdown(data.descs[qRs[i].step]);
                     console.log('2: ', qRs[i]);
                     //ctx.reply('Chat: '+ctx.message.chat.id.toString()+
                     //          ' step: '+step.toString()+
@@ -82,20 +82,20 @@ bot.on('text', (ctx) => {
                 } else if (check1) {
                     //Верный ответ
                     console.log('3: ', qRs[i]);
-                    ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
+                    await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                     qRs[i].trys[qRs[i].step]++;
                     let msg = 'Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
                     console.log(msg);
-                    setTimeout(ctx.reply(msg), 500);
+                    await ctx.reply(msg);
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].t1.push(Date.now());
                     qRs[i].step++;
-                    setTimeout(ctx.replyWithMarkdown(data.descs[qRs[i].step]), 1000);
+                    await ctx.replyWithMarkdown(data.descs[qRs[i].step]);
                     console.log('4: ', qRs[i]);
                 } else if (check0 && !check2) {
                     //Неверный ответ
                     console.log('5: ', qRs[i]);
-                    ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
+                    await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
                     qRs[i].trys[qRs[i].step]++;
                     let msg = 'Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
                     console.log(msg);
