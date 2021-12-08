@@ -29,7 +29,7 @@ function getRandom(min, max) {
 // Реакция на must have команды
 bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Cloud Function`))
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
-bot.command('quizit', (ctx) => {
+bot.command('quizit', async (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
         qRs[i].step = 0;
         qRs[i].t1 = [];
@@ -38,7 +38,8 @@ bot.command('quizit', (ctx) => {
         qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].total = 0;
-        bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
+        await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-0.png');
+        await bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
     }
     ctx.reply('Привет...\n'+
               'Ключ на старт и от винта!');
@@ -69,7 +70,6 @@ bot.on('text', async (ctx) => {
                     qRs[i].t1.push(Date.now());
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].step++;
-                    await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-0.png');
                     await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-1.jpg');
                     await bot.telegram.sendDocument(c.id, 'https://storage.yandexcloud.net/deain/01-2.pdf', [{disable_notification: true}]);
                     await bot.telegram.sendDocument(c.id, 'https://storage.yandexcloud.net/deain/01-3.mp4', [{disable_notification: true}]);
