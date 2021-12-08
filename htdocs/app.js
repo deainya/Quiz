@@ -84,7 +84,9 @@ bot.on('text', (ctx) => {
                     console.log('3: ', qRs[i]);
                     ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                     qRs[i].trys[qRs[i].step]++;
-                    setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString()), 500);
+                    let msg = 'Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
+                    console.log(msg);
+                    setTimeout(ctx.reply(msg), 500);
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].t1.push(Date.now());
                     qRs[i].step++;
@@ -95,8 +97,9 @@ bot.on('text', (ctx) => {
                     console.log('5: ', qRs[i]);
                     ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
                     qRs[i].trys[qRs[i].step]++;
-                    //setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString()), 250);
-                    setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString()), 500);
+                    let msg = 'Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
+                    console.log(msg);
+                    await ctx.reply(msg);
                     console.log('6: ', qRs[i]);
                 }
             }
