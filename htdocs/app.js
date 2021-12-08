@@ -63,7 +63,7 @@ bot.on('text', async (ctx) => {
                 let check1 = data.conds[qRs[i].step].answer == txt;
                 let check2 = data.conds[qRs[i].step].tryouts == 0;
                 let check3 = txt.substr(0, 1) == '?';
-                let check4 = (i == 25 && i == 27);
+                let check4 = (qRs[i].step == 25 && qRs[i].step == 27);
                 if (check1 && check2) {
                     //Вывод следующего задания
                     qRs[i].t1.push(Date.now());
@@ -86,8 +86,6 @@ bot.on('text', async (ctx) => {
                     //console.log('right - ', qRs[i]);
 
                 } else if (check4) {
-                    console.log(qRs[i].step, ' ', txt, check4, data.conds[qRs[i].step].answer.includes(txt));
-
                     if (data.conds[qRs[i].step].answer.includes(txt)) {
                         //верный ответ на спец. вопрос + хардкод 25
                         if (qRs[i].step == 25 && !a25.includes(txt)) {
@@ -142,7 +140,6 @@ bot.on('text', async (ctx) => {
 
                 } else {
                     //Специальные вопросы
-                    console.log(qRs[i].step, ' ', txt, check3, data.Qs21.includes(txt));
                     if (qRs[i].step == 21 && check3) {
                         if (data.Qs21.includes(txt)) {
                             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
