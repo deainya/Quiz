@@ -60,7 +60,7 @@ bot.on('text', (ctx) => {
     var c = ctx.message.chat;
     for (var i = 0; i < qRs.length; i++) {
         if (qRs[i].chat == c.id) {
-            console.log(c);
+            console.log(c.title);
             if (qRs[i].step < data.descs.length-1) {
                 var txt = ctx.message.text.toLowerCase();
                 //check = (qRs[step].answer).test(txt);
@@ -69,28 +69,35 @@ bot.on('text', (ctx) => {
                 let check2 = data.tasks[qRs[i].step].tryouts == 0;
                 if (check1 && check2) {
                     //Вывод следующего задания
+                    console.log('1: ', qRs[i]);
                     qRs[i].t1.push(Date.now());
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].step++;
                     ctx.replyWithMarkdown(data.descs[qRs[i].step]);
+                    console.log('2: ', qRs[i]);
                     //ctx.reply('Chat: '+ctx.message.chat.id.toString()+
                     //          ' step: '+step.toString()+
                     //          ' time: '+toMin(dnow-dstart).toString()+
                     //          ' points: '+tasks[step].points.toString());
                 } else if (check1) {
                     //Верный ответ
+                    console.log('3: ', qRs[i]);
                     ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                     qRs[i].trys[qRs[i].step]++;
-                    setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString()), 250);
+                    setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString()), 500);
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].t1.push(Date.now());
                     qRs[i].step++;
-                    setTimeout(ctx.replyWithMarkdown(data.descs[qRs[i].step]), 500);
+                    setTimeout(ctx.replyWithMarkdown(data.descs[qRs[i].step]), 1000);
+                    console.log('4: ', qRs[i]);
                 } else if (check0 && !check2) {
                     //Неверный ответ
+                    console.log('5: ', qRs[i]);
                     ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
                     qRs[i].trys[qRs[i].step]++;
-                    setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step]-qRs[i].trys[qRs[i].step]).toString()), 250);
+                    //setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString()), 250);
+                    setTimeout(ctx.reply('Осталось попыток: '+(data.tasks[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString()), 500);
+                    console.log('6: ', qRs[i]);
                 }
             }
         }
