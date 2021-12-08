@@ -69,6 +69,10 @@ bot.on('text', async (ctx) => {
                     qRs[i].t1.push(Date.now());
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].step++;
+                    await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-0.png');
+                    await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-1.jpg');
+                    bot.telegram.sendDocument(c.id, request('https://storage.yandexcloud.net/deain/01-2.pdf'), [{disable_notification: true}]);
+                    bot.telegram.sendDocument(c.id, request('https://storage.yandexcloud.net/deain/01-3.mp4'), [{disable_notification: true}]);
                     await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
                     //console.log('next - ', qRs[i]);
 
