@@ -88,7 +88,7 @@ bot.on('text', async (ctx) => {
                 } else if (check4) {
                     if (data.conds[qRs[i].step].answer.includes(txt)) {
                         //верный ответ на спец. вопрос + хардкод 25
-                        if (i == 25 && !a25.includes(txt)) {
+                        if (qRs[i].step == 25 && !a25.includes(txt)) {
                             a25.push(txt);
                             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                             qRs[i].pts[qRs[i].step] = qRs[i].pts[qRs[i].step] + data.conds[qRs[i].step].points;
@@ -103,7 +103,7 @@ bot.on('text', async (ctx) => {
                             }
                         }
                         //верный ответ на спец. вопрос + хардкод 27
-                        if (i == 27 && !a27.includes(txt)) {
+                        if (qRs[i].step == 27 && !a27.includes(txt)) {
                             a27.push(txt);
                             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                             qRs[i].pts[qRs[i].step] = qRs[i].pts[qRs[i].step] + data.conds[qRs[i].step].points;
@@ -140,8 +140,8 @@ bot.on('text', async (ctx) => {
 
                 } else {
                     //Специальные вопросы
-                    console.log(i, ' ', txt, check3, data.Qs21.includes(txt));
-                    if (i == 21 && check3) {
+                    //console.log(i, ' ', txt, check3, data.Qs21.includes(txt));
+                    if (qRs[i].step == 21 && check3) {
                         if (data.Qs21.includes(txt)) {
                             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                         } else {
