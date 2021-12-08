@@ -38,7 +38,7 @@ bot.command('quizit', (ctx) => {
         qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].total = 0;
-        //bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
+        bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
     }
     ctx.reply('Привет...\n'+
               'Ключ на старт и от винта!');
@@ -71,8 +71,8 @@ bot.on('text', async (ctx) => {
                     qRs[i].step++;
                     await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-0.png');
                     await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-1.jpg');
-                    bot.telegram.sendDocument(c.id, request('https://storage.yandexcloud.net/deain/01-2.pdf'), [{disable_notification: true}]);
-                    bot.telegram.sendDocument(c.id, request('https://storage.yandexcloud.net/deain/01-3.mp4'), [{disable_notification: true}]);
+                    bot.telegram.sendDocument(c.id, 'https://storage.yandexcloud.net/deain/01-2.pdf'), [{disable_notification: true}]);
+                    bot.telegram.sendDocument(c.id, 'https://storage.yandexcloud.net/deain/01-3.mp4'), [{disable_notification: true}]);
                     await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
                     //console.log('next - ', qRs[i]);
 
