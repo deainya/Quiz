@@ -63,7 +63,7 @@ bot.on('text', async (ctx) => {
                 let check1 = data.conds[qRs[i].step].answer == txt;
                 let check2 = data.conds[qRs[i].step].tryouts == 0;
                 let check3 = txt.substr(0, 1) == '?';
-                let check4 = (qRs[i].step == 25 && qRs[i].step == 27);
+                let check4 = (qRs[i].step == 25 || qRs[i].step == 27);
                 if (check1 && check2) {
                     //Вывод следующего задания
                     qRs[i].t1.push(Date.now());
