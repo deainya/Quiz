@@ -62,9 +62,8 @@ bot.on('text', async (ctx) => {
                 let check0 = txt.substr(0, 1) == '!';
                 let check1 = data.conds[qRs[i].step].answer == txt;
                 let check2 = data.conds[qRs[i].step].tryouts == 0;
-                let check3 = data.conds[qRs[i].step]. == 0;
-                let check4 = txt.substr(0, 1) == '?';
-                let check5 = (i == 25 && i == 27);
+                let check3 = txt.substr(0, 1) == '?';
+                let check4 = (i == 25 && i == 27);
                 if (check1 && check2) {
                     //Вывод следующего задания
                     //console.log('1: ', qRs[i]);
@@ -88,7 +87,7 @@ bot.on('text', async (ctx) => {
                     await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
                     console.log('4: ', qRs[i]);
 
-                } else if (check5) {
+                } else if (check4) {
                     if (data.conds[qRs[i].step].answer.includes(txt)) {
                         //верный ответ на спец. вопрос + хардкод 25
                         if (i == 25 && !a25.includes(txt)) {
@@ -145,7 +144,7 @@ bot.on('text', async (ctx) => {
 
                 } else {
                     //Специальные вопросы
-                    if (i == 21 && check4) {
+                    if (i == 21 && check3) {
                         if (data.Qs21.includes(txt)) {
                             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                         } else {
