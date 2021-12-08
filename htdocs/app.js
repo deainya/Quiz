@@ -31,7 +31,7 @@ bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\n
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
 bot.command('quizit', (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
-        qRs[i].step = 24;
+        qRs[i].step = 0;
         qRs[i].t1 = [];
         qRs[i].t1.push(Date.now());
         qRs[i].t2 = [];
@@ -123,7 +123,6 @@ bot.on('text', async (ctx) => {
                         qRs[i].trys[qRs[i].step]++;
                         let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
                         await ctx.reply(msg);
-                        console.log('z: ', qRs[i]);
                         //исчерпали все попытки
                         //...
                     }
