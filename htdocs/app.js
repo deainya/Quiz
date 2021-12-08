@@ -38,7 +38,7 @@ bot.command('quizit', async (ctx) => {
         qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].total = 0;
-        await ctx.replyWithPhoto('https://storage.yandexcloud.net/deain/01-0.png');
+        await bot.telegram.sendMessage(qRs[i].chat, 'https://storage.yandexcloud.net/deain/01-0.png');
         await bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
     }
     ctx.reply('Привет...\n'+
