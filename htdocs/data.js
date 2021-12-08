@@ -69,7 +69,7 @@ module.exports = {
         {answer: ["!наручники","!красный","!4","!дракон", "!франциск"], time: 35, tryouts: 10, points: 30},
         {answer: "!мыотдохнули", time: 10, tryouts: 0, points: 0},
         //29 photo
-        {answer: "!всё", time: 20, tryouts: 0, points: 50},
+        {answer: "!готово", time: 20, tryouts: 0, points: 50},
         //30 fin
         {answer: "", time: 0, tryouts: 0, points: 0}
     ],

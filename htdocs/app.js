@@ -85,7 +85,7 @@ bot.on('text', async (ctx) => {
                     await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
                     //console.log('right - ', qRs[i]);
 
-                } else if (check4) {
+                } else if (check0 && check4) {
                     if (data.conds[qRs[i].step].answer.includes(txt)) {
                         //верный ответ на спец. вопрос + хардкод 25
                         if (qRs[i].step == 25 && !a25.includes(txt)) {
