@@ -31,7 +31,7 @@ bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\n
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
 bot.command('quizit', (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
-        qRs[i].step = 20;
+        qRs[i].step = 24;
         qRs[i].t1 = [];
         qRs[i].t1.push(Date.now());
         qRs[i].t2 = [];
@@ -55,7 +55,7 @@ bot.on('text', async (ctx) => {
     var c = ctx.message.chat;
     for (var i = 0; i < qRs.length; i++) {
         if (qRs[i].chat == c.id) {
-            console.log(c.title);
+            //console.log(c.title);
             if (qRs[i].step < data.tasks.length-1) {
                 var txt = ctx.message.text.toLowerCase();
                 //check = (qRs[step].answer).test(txt);
@@ -86,6 +86,8 @@ bot.on('text', async (ctx) => {
                     //console.log('right - ', qRs[i]);
 
                 } else if (check4) {
+                    console.log(qRs[i].step, ' ', txt, check4, data.conds[qRs[i].step].answer.includes(txt));
+
                     if (data.conds[qRs[i].step].answer.includes(txt)) {
                         //верный ответ на спец. вопрос + хардкод 25
                         if (qRs[i].step == 25 && !a25.includes(txt)) {
@@ -140,7 +142,7 @@ bot.on('text', async (ctx) => {
 
                 } else {
                     //Специальные вопросы
-                    //console.log(i, ' ', txt, check3, data.Qs21.includes(txt));
+                    console.log(qRs[i].step, ' ', txt, check3, data.Qs21.includes(txt));
                     if (qRs[i].step == 21 && check3) {
                         if (data.Qs21.includes(txt)) {
                             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
