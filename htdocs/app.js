@@ -31,7 +31,7 @@ bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\n
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
 bot.command('quizit', (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
-        qRs[i].step = 0;
+        qRs[i].step = 20;
         qRs[i].t1 = [];
         qRs[i].t1.push(Date.now());
         qRs[i].t2 = [];
@@ -66,16 +66,14 @@ bot.on('text', async (ctx) => {
                 let check4 = (i == 25 && i == 27);
                 if (check1 && check2) {
                     //Вывод следующего задания
-                    //console.log('1: ', qRs[i]);
                     qRs[i].t1.push(Date.now());
                     qRs[i].t2.push(qRs[i].t1);
                     qRs[i].step++;
                     await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
-                    console.log('2: ', qRs[i]);
+                    //console.log('next - ', qRs[i]);
 
                 } else if (check1) {
                     //Верный ответ
-                    //console.log('3: ', qRs[i]);
                     await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
                     qRs[i].pts[qRs[i].step] = data.conds[qRs[i].step].points;
                     qRs[i].trys[qRs[i].step]++;
@@ -85,7 +83,7 @@ bot.on('text', async (ctx) => {
                     qRs[i].t1.push(Date.now());
                     qRs[i].step++;
                     await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
-                    console.log('4: ', qRs[i]);
+                    //console.log('right - ', qRs[i]);
 
                 } else if (check4) {
                     if (data.conds[qRs[i].step].answer.includes(txt)) {
@@ -121,7 +119,6 @@ bot.on('text', async (ctx) => {
                         }
                     } else {
                         //неверный ответ на спец. вопрос
-                        //console.log('y: ', qRs[i]);
                         await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
                         qRs[i].trys[qRs[i].step]++;
                         let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
@@ -133,17 +130,17 @@ bot.on('text', async (ctx) => {
 
                 } else if (check0 && !check2) {
                     //Неверный ответ
-                    //console.log('5: ', qRs[i]);
                     await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
                     qRs[i].trys[qRs[i].step]++;
                     let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
                     await ctx.reply(msg);
-                    console.log('6: ', qRs[i]);
+                    //console.log('wrong - ', qRs[i]);
                     //Исчерпали все попытки
                     //...
 
                 } else {
                     //Специальные вопросы
+                    console.log(i, ' ', txt, check3, data.Qs21.includes(txt));
                     if (i == 21 && check3) {
                         if (data.Qs21.includes(txt)) {
                             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
