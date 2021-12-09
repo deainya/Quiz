@@ -45,7 +45,7 @@ module.exports = {
         [],
         //29
         ['20-1-bradpitt.jpg', '20-2-bradpitt.pdf'],
-        []
+        [], []
     ],
     tasks: [
         //Подправить слово "Активация"
