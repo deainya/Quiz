@@ -208,6 +208,8 @@ bot.on('text', async (ctx) => {
     var m = ctx.message.message_id;
     var i = data.chats.indexOf(c.id);
     var stp = qRs[i].step;
+    console.log(qRs);
+    console.log(ctx);
     if (stp == 29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
         if (qRs[i].pts[stp] >= 250) {
