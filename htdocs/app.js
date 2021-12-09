@@ -43,8 +43,8 @@ bot.command('quizit', async (ctx) => {
         qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].total = 0;
-        await bot.telegram.sendPhoto(c.id, yc+data.images[qRs[i].step][0]);
-        await bot.telegram.sendMessage(c.id, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
+        await bot.telegram.sendPhoto(data.chats[i], yc+data.images[qRs[i].step][0]);
+        await bot.telegram.sendMessage(data.chats[i], data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
     }
     ctx.reply('Привет...\n'+
               'Ключ на старт и от винта!');
