@@ -203,7 +203,7 @@ bot.on('text', async (ctx) => {
 })
 
 // Реакция на фото
-bot.on('text', async (ctx) => {
+bot.on('photo', async (ctx) => {
     var c = ctx.message.chat;
     var m = ctx.message.message_id;
     var i = data.chats.indexOf(c.id);
