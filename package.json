@@ -6,6 +6,7 @@
   "author": "deainya",
   "license": "?",
   "dependencies": {
-    "telegraf": "^3.6.1"
+    "telegraf": "^3.6.1",
+    "forever": "^4.0.0"
   }
 }
