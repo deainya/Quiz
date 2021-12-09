@@ -12,11 +12,9 @@ const bot = new Telegraf(config.bot_token);
 // Кол-во чатов - хардкод
 var yc = 'https://storage.yandexcloud.net/deain/';
 var qRs = [
-        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], total: 0},
-        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], total: 0}
+        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], a25:[], a27:[], total: 0},
+        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], a25:[], a27:[], total: 0}
     ];
-var a25 = [];
-var a27 = [];
 
 // Переводит милисекунды в минуты
 function toMin(mSec) {
@@ -42,6 +40,8 @@ bot.command('quizit', async (ctx) => {
         qRs[i].t2 = [];
         qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        qRs[i].a25 = [];
+        qRs[i].a27 = [];
         qRs[i].total = 0;
         await bot.telegram.sendPhoto(data.chats[i], yc+data.images[stp][0]);
         await bot.telegram.sendMessage(data.chats[i], data.tasks[stp], { parse_mode: "MarkdownV2" });
@@ -126,8 +126,8 @@ bot.on('text', async (ctx) => {
         } else if (check0 && check4) {
             if (data.conds[stp].answer.includes(txt)) {
                 //верный ответ на спец. вопрос + хардкод 25
-                if (stp == 25 && !a25.includes(txt)) {
-                    a25.push(txt);
+                if (stp == 25 && !qRs[i].a25.includes(txt)) {
+                    qRs[i].a25.push(txt);
                     qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                     qRs[i].trys[stp]++;
                     let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
@@ -144,8 +144,8 @@ bot.on('text', async (ctx) => {
                     }
                 }
                 //верный ответ на спец. вопрос + хардкод 27
-                if (stp == 27 && !a27.includes(txt)) {
-                    a27.push(txt);
+                if (stp == 27 && !qRs[i].a27.includes(txt)) {
+                    qRs[i].a27.push(txt);
                     qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                     qRs[i].trys[stp]++;
                     let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
