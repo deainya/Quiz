@@ -17,35 +17,26 @@ module.exports = {
     images: [
         //0+
         ['01-1-activation.png'],
-        //1
-        ['02-1-emotions.png', '02-2-emotions.jpg', '02-3-emotions.mp3'],
-        [],
-        //3
-        ['04-1-goreading.png','04-2-goreading.jpg'],
-        [],
+        //1+
+        ['02-1-emotions.png', '02-2-emotions.jpg', '02-3-emotions.mp3'], [],
+        //3+
+        ['04-1-goreading.png','04-2-goreading.jpg'], [],
         //5+
-        ['06-1-china.png'],
-        [], [], [], [], [], [], [], [], [], [], [],
-        //17
-        ['08-1-bullsbears.png', '08-2-chart.jpg'],
-        [],
-        //19
-        ['10-1-fit.png', '10-2-ivan.mp4'],
-        [],
-        //21
-        ['12-1-logic.png', '12-2-logic.jpg', '12-3-logic.jpg'],
+        ['06-1-china.png'], [], [], [], [], [], [], [], [], [], [], [],
+        //17+
+        ['08-1-bullsbears.png', '08-2-chart.jpg'], [],
+        //19+
+        ['10-1-fit.png', '10-2-ivan.mp4'], [],
+        //21+
+        ['12-1-logic.png', '12-2-logic.jpg', '12-3-logic.jpg'], [],
         //23
-        ['14-1-efficiency.png', '14-2-keyboard.jpg'],
-        [],
-        //25+
-        ['16-1-logic.png',  '16-2-rebus.jpg',  '16-3-rebus.jpg', '16-4-rebus.jpg'],
-        [],
-        //27+
-        ['18-1-alcatraz.jpg', '18-2-alcatraz.pdf'],
-        [],
+        ['14-1-efficiency.png', '14-2-keyboard.jpg'], [],
+        //25
+        ['16-1-logic.png',  '16-2-rebus.jpg',  '16-3-rebus.jpg', '16-4-rebus.jpg'], [],
+        //27
+        ['18-1-alcatraz.jpg', '18-2-alcatraz.pdf'], [],
         //29
-        ['20-1-bradpitt.jpg', '20-2-bradpitt.pdf'],
-        [], []
+        ['20-1-bradpitt.jpg', '20-2-bradpitt.pdf'], []
     ],
     tasks: [
         //Подправить слово "Активация"
