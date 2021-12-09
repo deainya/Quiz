@@ -60,7 +60,8 @@ bot.on('new_chat_members', (ctx) => {
 // Реакция на текстовые сообщения
 bot.on('text', async (ctx) => {
     var c = ctx.message.chat;
-    var m = ctx.message.reply_to_message.message_id;
+    var m = ctx.message; //.reply_to_message.message_id;
+    console.log(m);
     var txt = ctx.message.text.toLowerCase();
     var i = data.chats.indexOf(c.id);
     var stp = qRs[i].step;
