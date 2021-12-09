@@ -84,7 +84,7 @@ bot.on('text', async (ctx) => {
                       await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                       await bot.telegram.sendDocument(c.id, yc+data.images[qRs[i].step][2], [{disable_notification: true}]);
                   } else if (qRs[i].step == 3) {
-                      await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
+                      await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                   } else if (qRs[i].step == 17) {
                       await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
                   } else if (qRs[i].step == 19) {
@@ -128,7 +128,7 @@ bot.on('text', async (ctx) => {
                       await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                       await bot.telegram.sendDocument(c.id, yc+data.images[qRs[i].step][2], [{disable_notification: true}]);
                   } else if (qRs[i].step == 3) {
-                      await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
+                      await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                   } else if (qRs[i].step == 17) {
                       await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
                   } else if (qRs[i].step == 19) {
@@ -176,7 +176,7 @@ bot.on('text', async (ctx) => {
                                   await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                                   await bot.telegram.sendDocument(c.id, yc+data.images[qRs[i].step][2], [{disable_notification: true}]);
                               } else if (qRs[i].step == 3) {
-                                  await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
+                                  await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                               } else if (qRs[i].step == 17) {
                                   await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
                               } else if (qRs[i].step == 19) {
@@ -223,7 +223,7 @@ bot.on('text', async (ctx) => {
                                   await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                                   await bot.telegram.sendDocument(c.id, yc+data.images[qRs[i].step][2], [{disable_notification: true}]);
                               } else if (qRs[i].step == 3) {
-                                  await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
+                                  await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
                               } else if (qRs[i].step == 17) {
                                   await ctx.replyWithPhoto(yс+data.images[qRs[i].step][1]);
                               } else if (qRs[i].step == 19) {
