@@ -14,7 +14,7 @@ module.exports = {
         '17-1.mp4',
         '19-1.mp4'
     ],
-    imgages: [
+    images: [
         //0+
         ['01-1-activation.png'],
         //1
