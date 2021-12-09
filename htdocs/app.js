@@ -78,7 +78,7 @@ bot.on('text', async (ctx) => {
 
             //hardcode
             if (data.images[qRs[i].step].length > 0) {
-                  await ctx.replyWithPhoto(yx+data.images[qRs[i].step][0]);
+                  await ctx.replyWithPhoto(yc+data.images[qRs[i].step][0]);
                   //hardcode
                   if (qRs[i].step == 1) {
                       await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
@@ -122,7 +122,7 @@ bot.on('text', async (ctx) => {
 
             //hardcode
             if (data.images[qRs[i].step].length > 0) {
-                  await ctx.replyWithPhoto(yx+data.images[qRs[i].step][0]);
+                  await ctx.replyWithPhoto(yc+data.images[qRs[i].step][0]);
                   //hardcode
                   if (qRs[i].step == 1) {
                       await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
@@ -170,7 +170,7 @@ bot.on('text', async (ctx) => {
 
                         //hardcode
                         if (data.images[qRs[i].step].length > 0) {
-                              await ctx.replyWithPhoto(yx+data.images[qRs[i].step][0]);
+                              await ctx.replyWithPhoto(yc+data.images[qRs[i].step][0]);
                               //hardcode
                               if (qRs[i].step == 1) {
                                   await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
@@ -217,7 +217,7 @@ bot.on('text', async (ctx) => {
 
                         //hardcode
                         if (data.images[qRs[i].step].length > 0) {
-                              await ctx.replyWithPhoto(yx+data.images[qRs[i].step][0]);
+                              await ctx.replyWithPhoto(yc+data.images[qRs[i].step][0]);
                               //hardcode
                               if (qRs[i].step == 1) {
                                   await ctx.replyWithPhoto(yc+data.images[qRs[i].step][1]);
