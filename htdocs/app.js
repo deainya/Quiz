@@ -13,7 +13,7 @@ const bot = new Telegraf(config.bot_token);
 var yc = 'https://storage.yandexcloud.net/deain/';
 var qRs = [
         {step: 0, t1:[], t2:[], trys:[], pts:[], total: 0},
-        {step:0, t1:[], t2:[], trys:[], pts:[], total: 0}
+        {step: 0, t1:[], t2:[], trys:[], pts:[], total: 0}
     ];
 var a25 = [];
 var a27 = [];
@@ -34,18 +34,18 @@ bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\n
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
 bot.command('quizit', async (ctx) => {
     var c = ctx.message.chat;
-    var i = data.chats.indexOf(c.id);
     j = 0;
-    qRs[i].step = 0;
-    qRs[i].t1 = [];
-    qRs[i].t1.push(Date.now());
-    qRs[i].t2 = [];
-    qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    qRs[i].total = 0;
-    await bot.telegram.sendPhoto(c.id, yc+data.images[qRs[i].step][0]);
-    await bot.telegram.sendMessage(c.id, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
-
+    for (var i = 0; i < qRs.length; i++) {
+        qRs[i].step = 0;
+        qRs[i].t1 = [];
+        qRs[i].t1.push(Date.now());
+        qRs[i].t2 = [];
+        qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        qRs[i].total = 0;
+        await bot.telegram.sendPhoto(c.id, yc+data.images[qRs[i].step][0]);
+        await bot.telegram.sendMessage(c.id, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
+    }
     ctx.reply('Привет...\n'+
               'Ключ на старт и от винта!');
 })
