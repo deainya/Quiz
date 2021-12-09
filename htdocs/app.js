@@ -227,7 +227,7 @@ bot.on('photo', async (ctx) => {
             qRs[i].step++;
             stp = qRs[i].step;
 
-            for (var j = 0; k < qRs[i].pts.length; j++) {
+            for (var j = 0; j < qRs[i].pts.length; j++) {
                 qRs[i].total = qRs[i].total + qRs[i].pts[j];
             }
             await ctx.replyWithMarkdown('Сумма баллов: '+qRs[i].total.toStrin()+
