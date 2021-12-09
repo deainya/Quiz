@@ -66,7 +66,6 @@ bot.on('text', async (ctx) => {
     var stp = qRs[i].step;
 
     //console.log(c.title);
-    //check this condition
     if (stp < data.tasks.length-1) {
         //check = (qRs[i].answer).test(txt);
         let check0 = txt.substr(0, 1) == '!';
@@ -75,7 +74,6 @@ bot.on('text', async (ctx) => {
         let check3 = txt.substr(0, 1) == '?';
         let check4 = (stp == 25 || stp == 27);
         if (check1 && check2) {
-            console.log('task before ', stp);
             //Вывод следующего задания
             qRs[i].t1.push(Date.now());
             qRs[i].t2.push(qRs[i].t1);
@@ -110,9 +108,6 @@ bot.on('text', async (ctx) => {
                   }
             }
             await ctx.replyWithMarkdown(data.tasks[stp]);
-            console.log('task after ', stp);
-            //console.log('next - ', qRs[i]);
-
         } else if (check1) {
             //Верный ответ
             qRs[i].pts[stp] = data.conds[stp].points;
@@ -129,8 +124,6 @@ bot.on('text', async (ctx) => {
             stp = qRs[i].step;
 
             await ctx.replyWithMarkdown(data.tasks[stp]);
-            //console.log('right - ', qRs[i]);
-
         } else if (check0 && check4) {
             if (data.conds[stp].answer.includes(txt)) {
                 //верный ответ на спец. вопрос + хардкод 25
@@ -149,7 +142,6 @@ bot.on('text', async (ctx) => {
                         stp = qRs[i].step;
 
                         await ctx.replyWithMarkdown(data.tasks[stp]);
-                        //console.log('right - ', qRs[i]);
                     }
                 }
                 //верный ответ на спец. вопрос + хардкод 27
@@ -168,27 +160,47 @@ bot.on('text', async (ctx) => {
                         stp = qRs[i].step;
 
                         await ctx.replyWithMarkdown(data.tasks[stp]);
-                        //console.log('right - ', qRs[i]);
                     }
                 }
             } else {
                 //неверный ответ на спец. вопрос
                 qRs[i].trys[stp]++;
-                let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
-                await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n'+msg, {reply_to_message_id : m});
+                let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
                 //исчерпали все попытки
-                //...
-            }
+                if (trs > 0) {
+                    let msg = 'Осталось попыток: '+trs.toString();
+                    await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n'+msg, {reply_to_message_id : m});
+                } else {
+                    let msg = 'Увы, попытки закончились 😮';
+                    await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n'+msg, {reply_to_message_id : m});
 
+                    qRs[i].t2.push(qRs[i].t1);
+                    qRs[i].t1.push(Date.now());
+                    qRs[i].step++;
+                    stp = qRs[i].step;
+
+                    await ctx.replyWithMarkdown(data.tasks[stp]);
+                }
+            }
         } else if (check0 && !check2) {
             //Неверный ответ
             qRs[i].trys[stp]++;
-            let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
-            await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n'+msg, {reply_to_message_id : m});
-            //console.log('wrong - ', qRs[i]);
+            let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
             //Исчерпали все попытки
-            //...
+            if (trs > 0) {
+                let msg = 'Осталось попыток: '+trs.toString();
+                await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n'+msg, {reply_to_message_id : m});
+            } else {
+                let msg = 'Увы, попытки закончились 😮';
+                await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n'+msg, {reply_to_message_id : m});
 
+                qRs[i].t2.push(qRs[i].t1);
+                qRs[i].t1.push(Date.now());
+                qRs[i].step++;
+                stp = qRs[i].step;
+
+                await ctx.replyWithMarkdown(data.tasks[stp]);
+            }
         } else {
             //Специальные вопросы
             if (stp == 21 && check3) {
@@ -208,8 +220,6 @@ bot.on('photo', async (ctx) => {
     var m = ctx.message.message_id;
     var i = data.chats.indexOf(c.id);
     var stp = qRs[i].step;
-    console.log(qRs);
-    console.log(ctx);
     if (stp == 29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
         if (qRs[i].pts[stp] >= 250) {
@@ -218,14 +228,18 @@ bot.on('photo', async (ctx) => {
             qRs[i].step++;
             stp = qRs[i].step;
 
-            await ctx.replyWithMarkdown(data.tasks[stp]);
+            for (var j = 0; k < qRs[j].pts.length; j++) {
+                qRs[i].total = qRs[i].total + qRs[i].pts[j];
+            }
+            await ctx.replyWithMarkdown('Сумма баллов: '+qRs[i].total.toStrin()+
+                                        '\n\n'+data.tasks[stp]);
         }
     }
 })
 
 // Ловим ошибки приложеньки
 bot.catch((err) => {
-    console.log('Oops', err);
+    console.log('doh', err);
 })
 
 // Запускаем poll обработчик бота
