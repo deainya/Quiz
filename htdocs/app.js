@@ -96,15 +96,15 @@ bot.on('text', async (ctx) => {
                   } else if (stp == 21) {
                       await ctx.replyWithPhoto(yc+data.images[stp][1]);
                       await ctx.replyWithPhoto(yc+data.images[stp][2]);
-                  } else if (stp == 23) {
+                  } else if (stp == 22) {
                       await ctx.replyWithPhoto(yc+data.images[stp][1]);
-                  } else if (stp == 25) {
+                  } else if (stp == 24) {
                       await ctx.replyWithPhoto(yc+data.images[stp][1]);
                       await ctx.replyWithPhoto(yc+data.images[stp][2]);
                       await ctx.replyWithPhoto(yc+data.images[stp][3]);
-                  } else if (stp == 27) {
+                  } else if (stp == 26) {
                       await bot.telegram.sendDocument(c.id, yc+data.images[stp][1], [{disable_notification: true}]);
-                  } else if (stp == 29) {
+                  } else if (stp == 28) {
                       await bot.telegram.sendDocument(c.id, yc+data.images[stp][1], [{disable_notification: true}]);
                   }
             }
@@ -118,7 +118,7 @@ bot.on('text', async (ctx) => {
             qRs[i].trys[stp]++;
             //let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
             //await ctx.reply(msg);
-            if (stp < 6 || stp > 16) {
+            if (stp < 6 || stp > 15) {
                 await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
                 j++;
             }
