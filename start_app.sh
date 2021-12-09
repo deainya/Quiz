@@ -15,6 +15,6 @@ sudo git pull origin master
 echo "Finished 'git pull'"
 sudo npm install
 echo "Finished 'npm install'"
-node forever stop htdocs/app.js
-node forever start htdocs/app.js
+node node_modules/forever/bin/forever stop htdocs/app.js
+node node_modules/forever/bin/forever start htdocs/app.js
 echo "App sould be forever started on server. Check it out"
