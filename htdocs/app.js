@@ -12,12 +12,11 @@ const bot = new Telegraf(config.bot_token);
 // Кол-во чатов - хардкод
 var yc = 'https://storage.yandexcloud.net/deain/';
 var qRs = [
-        {step: 0, t1:[], t2:[], trys:[], pts:[], total: 0},
-        {step: 0, t1:[], t2:[], trys:[], pts:[], total: 0}
+        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], total: 0},
+        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], total: 0}
     ];
 var a25 = [];
 var a27 = [];
-var j = 0;
 
 // Переводит милисекунды в минуты
 function toMin(mSec) {
@@ -35,9 +34,9 @@ bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi a
 bot.command('quizit', async (ctx) => {
     var c = ctx.message.chat;
     var stp = 0
-    j = 0;
     for (var i = 0; i < qRs.length; i++) {
         qRs[i].step = stp;
+        qRs[i].ok = 0;
         qRs[i].t1 = [];
         qRs[i].t1.push(Date.now());
         qRs[i].t2 = [];
@@ -115,8 +114,8 @@ bot.on('text', async (ctx) => {
             let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*\n'+msg, {reply_to_message_id : m});
             if (stp < 6 || stp > 14) {
-                await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
-                j++;
+                await bot.telegram.sendDocument(c.id, yc+data.ok[qRs[i].ok], [{disable_notification: true}]);
+                qRs[i].ok++;
             }
             qRs[i].t2.push(qRs[i].t1);
             qRs[i].t1.push(Date.now());
@@ -134,8 +133,8 @@ bot.on('text', async (ctx) => {
                     let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                     await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*\n'+msg, {reply_to_message_id : m});
                     if (a25.length == 3) {
-                        await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
-                        j++;
+                        await bot.telegram.sendDocument(c.id, yc+data.ok[qRs[i].ok], [{disable_notification: true}]);
+                        qRs[i].ok++;
                         qRs[i].t2.push(qRs[i].t1);
                         qRs[i].t1.push(Date.now());
                         qRs[i].step++;
@@ -152,8 +151,8 @@ bot.on('text', async (ctx) => {
                     let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                     await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*\n'+msg, {reply_to_message_id : m});
                     if (a27.length == 5) {
-                        await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
-                        j++;
+                        await bot.telegram.sendDocument(c.id, yc+data.ok[qRs[i].ok], [{disable_notification: true}]);
+                        qRs[i].ok++;
                         qRs[i].t2.push(qRs[i].t1);
                         qRs[i].t1.push(Date.now());
                         qRs[i].step++;
