@@ -27,7 +27,7 @@ module.exports = {
         ['06-1-china.png'],
         [], [], [], [], [], [], [], [], [], [], [],
         //17
-        ['08-1-buulsbears.png', '08-2-chart.jpg'],
+        ['08-1-bullsbears.png', '08-2-chart.jpg'],
         [],
         //19
         ['10-1-fit.png', '10-2-ivan.mp4'],
