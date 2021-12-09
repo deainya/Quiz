@@ -114,8 +114,10 @@ bot.on('text', async (ctx) => {
             qRs[i].trys[qRs[i].step]++;
             //let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
             //await ctx.reply(msg);
-            await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
-            j++;
+            if (qRs[i].step < 6 && qRs[i].step > 16) {
+                await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
+                j++;
+            }
             qRs[i].t2.push(qRs[i].t1);
             qRs[i].t1.push(Date.now());
             qRs[i].step++;
