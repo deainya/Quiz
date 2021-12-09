@@ -43,6 +43,7 @@ bot.command('quizit', async (ctx) => {
         qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].total = 0;
+        console.log(data.images[qRs[i].step]);
         await bot.telegram.sendPhoto(c.id, yc+data.images[qRs[i].step][0]);
         await bot.telegram.sendMessage(c.id, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" }) //team 1
     }
