@@ -75,6 +75,7 @@ bot.on('text', async (ctx) => {
         let check3 = txt.substr(0, 1) == '?';
         let check4 = (stp == 25 || stp == 27);
         if (check1 && check2) {
+            console.log('task before ', stp);
             //Вывод следующего задания
             qRs[i].t1.push(Date.now());
             qRs[i].t2.push(qRs[i].t1);
@@ -109,6 +110,7 @@ bot.on('text', async (ctx) => {
                   }
             }
             await ctx.replyWithMarkdown(data.tasks[stp]);
+            console.log('task after ', stp);
             //console.log('next - ', qRs[i]);
 
         } else if (check1) {
