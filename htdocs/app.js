@@ -61,7 +61,6 @@ bot.on('new_chat_members', (ctx) => {
 bot.on('text', async (ctx) => {
     var c = ctx.message.chat;
     var m = ctx.message.message_id;
-    console.log(m);
     var txt = ctx.message.text.toLowerCase();
     var i = data.chats.indexOf(c.id);
     var stp = qRs[i].step;
@@ -114,11 +113,10 @@ bot.on('text', async (ctx) => {
 
         } else if (check1) {
             //Верный ответ
-            //ctx.reply("x", {reply_to_message_id : m})
             await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*', {reply_to_message_id : m});
             qRs[i].pts[stp] = data.conds[stp].points;
             qRs[i].trys[stp]++;
-            //let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
+            //let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
             //await ctx.reply(msg);
             if (stp < 6 || stp > 16) {
                 await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
@@ -133,14 +131,14 @@ bot.on('text', async (ctx) => {
             //console.log('right - ', qRs[i]);
 
         } else if (check0 && check4) {
-            if (data.conds[qRs[i].step].answer.includes(txt)) {
+            if (data.conds[stp].answer.includes(txt)) {
                 //верный ответ на спец. вопрос + хардкод 25
-                if (qRs[i].step == 25 && !a25.includes(txt)) {
+                if (stp == 25 && !a25.includes(txt)) {
                     a25.push(txt);
-                    await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
-                    qRs[i].pts[qRs[i].step] = qRs[i].pts[qRs[i].step] + data.conds[qRs[i].step].points;
-                    qRs[i].trys[qRs[i].step]++;
-                    let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
+                    await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*', {reply_to_message_id : m});
+                    qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
+                    qRs[i].trys[stp]++;
+                    let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                     await ctx.reply(msg);
                     if (a25.length == 3) {
                         await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
@@ -148,18 +146,19 @@ bot.on('text', async (ctx) => {
                         qRs[i].t2.push(qRs[i].t1);
                         qRs[i].t1.push(Date.now());
                         qRs[i].step++;
+                        stp = qRs[i].step;
 
-                        await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
+                        await ctx.replyWithMarkdown(data.tasks[stp]);
                         //console.log('right - ', qRs[i]);
                     }
                 }
                 //верный ответ на спец. вопрос + хардкод 27
-                if (qRs[i].step == 27 && !a27.includes(txt)) {
+                if (stp == 27 && !a27.includes(txt)) {
                     a27.push(txt);
-                    await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
-                    qRs[i].pts[qRs[i].step] = qRs[i].pts[qRs[i].step] + data.conds[qRs[i].step].points;
-                    qRs[i].trys[qRs[i].step]++;
-                    let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
+                    await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*', {reply_to_message_id : m});
+                    qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
+                    qRs[i].trys[stp]++;
+                    let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                     await ctx.reply(msg);
                     if (a27.length == 5) {
                         await bot.telegram.sendDocument(c.id, yc+data.ok[j], [{disable_notification: true}]);
@@ -167,16 +166,17 @@ bot.on('text', async (ctx) => {
                         qRs[i].t2.push(qRs[i].t1);
                         qRs[i].t1.push(Date.now());
                         qRs[i].step++;
+                        stp = qRs[i].step;
 
-                        await ctx.replyWithMarkdown(data.tasks[qRs[i].step]);
+                        await ctx.replyWithMarkdown(data.tasks[stp]);
                         //console.log('right - ', qRs[i]);
                     }
                 }
             } else {
                 //неверный ответ на спец. вопрос
-                await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
-                qRs[i].trys[qRs[i].step]++;
-                let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
+                await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*', {reply_to_message_id : m});
+                qRs[i].trys[stp]++;
+                let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                 await ctx.reply(msg);
                 //исчерпали все попытки
                 //...
@@ -184,9 +184,9 @@ bot.on('text', async (ctx) => {
 
         } else if (check0 && !check2) {
             //Неверный ответ
-            await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
-            qRs[i].trys[qRs[i].step]++;
-            let msg = 'Осталось попыток: '+(data.conds[qRs[i].step].tryouts-qRs[i].trys[qRs[i].step]).toString();
+            await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*', {reply_to_message_id : m});
+            qRs[i].trys[stp]++;
+            let msg = 'Осталось попыток: '+(data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
             await ctx.reply(msg);
             //console.log('wrong - ', qRs[i]);
             //Исчерпали все попытки
@@ -194,11 +194,11 @@ bot.on('text', async (ctx) => {
 
         } else {
             //Специальные вопросы
-            if (qRs[i].step == 21 && check3) {
+            if (stp == 21 && check3) {
                 if (data.Qs21.includes(txt)) {
-                    await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*');
+                    await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*', {reply_to_message_id : m});
                 } else {
-                    await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*');
+                    await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*', {reply_to_message_id : m});
                 }
             }
         }
