@@ -11,10 +11,7 @@ const chats = config.chats;
 const yc = config.yc;
 
 // Объявляем переменные
-var qRs = [
-        {step: 0, ok: 0, t1:[], t2:[], dif:[], trys:[], pts:[], a25:[], a27:[], total: 0},
-        {step: 0, ok: 0, t1:[], t2:[], dif:[], trys:[], pts:[], a25:[], a27:[], total: 0}
-    ];
+var qRs = [];
 
 // Переводит милисекунды в минуты
 function toMin(mSec) {
@@ -29,25 +26,33 @@ function getRandom(min, max) {
 // Реакция на must have команды
 bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Cloud Function`))
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
+bot.command('chatit', (ctx) => {
+    ctx.reply(ctx.message.chat);
+})
 bot.command('quizit', async (ctx) => {
     var c = ctx.message.chat;
     var stp = 0
-    for (var i = 0; i < qRs.length; i++) {
-        qRs[i].step = stp;
-        qRs[i].ok = 0;
-        qRs[i].t1 = [];
+    qRs = [];
+    for (var i = 0; i < chats.length; i++) {
+        qRs.push({
+            chat: chats[i],
+            step: stp, ok: 0, t1: [], t2: [], dif: [],
+            trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+            pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            a25: [], a27: [], total: 0
+        });
         qRs[i].t1.push(Date.now());
-        qRs[i].t2 = [];
-        qRs[i].dif = [];
-        qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        qRs[i].a25 = [];
-        qRs[i].a27 = [];
-        qRs[i].total = 0;
         await bot.telegram.sendPhoto(chats[i], yc + data.images[stp][0]);
         await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "MarkdownV2" });
     }
     ctx.reply('Привет...\nКлюч на старт и от винта!');
+})
+bot.command('scoreit', (ctx) => {
+    ctx.reply(qRs);
 })
 
 // Реакция на новых пользователей в группе
@@ -234,10 +239,14 @@ bot.on('photo', async (ctx) => {
             stp = qRs[i].step;
 
             for (var j = 0; j < qRs[i].pts.length; j++) {
-                qRs[i].total = qRs[i].total + qRs[i].pts[j];
-                qRs[i].dif[j] = qRs[i].t2[j] - qRs[i].t1[j];
+                if (j == 17 || j == 21 || j == 23) {
+                    qRs[i].dif.push(qRs[i].t2[j] - qRs[i].t1[j]);
+                }
+                else {
+                    qRs[i].total = qRs[i].total + qRs[i].pts[j];
+                }
             }
-            console.log(c.title, qRs);
+            console.log(c.title, qRs, qRs[i].pts.length);
             await ctx.replyWithMarkdown('Сумма баллов: ' + qRs[i].total.toString() +
                                         '\n\n' + data.tasks[stp]);
         }
