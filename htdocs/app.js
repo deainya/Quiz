@@ -84,24 +84,53 @@ bot.command('quizit', async (ctx) => {
     ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
 bot.command('scoreit', (ctx) => {
-    /*let a4 = [];
-    let a6 = [];
-    let a7 = [];
+    ctx.reply(qRs);
+
+    var a17 = [];
+    var a21 = [];
+    var a23 = [];
     for (var i = 0; i < chats.length; i++) {
-        if (qRs[i].dif.length > 0) {
-            a4.push({chat: qRs[i].chat, t: qRs[i].dif[0], p: qRs[i].pts[17]});
-            a6.push({chat: qRs[i].chat, t: qRs[i].dif[1], p: qRs[i].pts[21]});
-            a7.push({chat: qRs[i].chat, t: qRs[i].dif[2], p: qRs[i].pts[23]});
+        if (qRs[i].pts[17] == -1) {
+            a17.push({chat: qRs[i].chat, t: qRs[i].dif[0], p: 0});
+        }
+        if (qRs[i].pts[21] == -1) {
+            a21.push({chat: qRs[i].chat, t: qRs[i].dif[1], p: 0});
+        }
+        if (qRs[i].pts[23] == -1) {
+            a23.push({chat: qRs[i].chat, t: qRs[i].dif[2], p: 0});
         }
     }
-    ctx.reply(qRs.chat, qRs.dif, qRs.pts);*/
-    var a = [
+    quickSort(a17, 0, a17.length - 1);
+    for (var i = 0; i < a17.length; i++) {
+        a17[i].p = 100 - (a17.length - i - 1);
+        qRs[chats.indexOf(a17[i].chat)].pts[17] = a17[i].p;
+    }
+    quickSort(a21, 0, a21.length - 1);
+    for (var i = 0; i < a21.length; i++) {
+        a21[i].p = 100 - (a21.length - i - 1);
+        qRs[chats.indexOf(a21[i].chat)].pts[21] = a21[i].p;
+    }
+    quickSort(a23, 0, a23.length - 1);
+    for (var i = 0; i < a23.length; i++) {
+        a23[i].p = 100 - (a23.length - i - 1);
+        qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
+    }
+
+    ctx.reply(qRs);
+
+    for (var i = 0; i < chats.length; i++) {
+        for (var j = 0; j < qRs[i].pts.length; j++) {
+            qRs[i].total = qRs[i].total + qRs[i].pts[j];
+        }
+        ctx.reply(qRs[i].chat, qRs[i].total);
+    }
+    /*var a = [
         {chat: -1, t: 36, p: 100},
         {chat: -2, t: 11, p: 100},
         {chat: -3, t: 23, p: 100}
     ];
     quickSort(a, 0, a.length - 1);
-    console.log(a);
+    console.log(a);*/
 })
 
 // Реакция на новых пользователей в группе
