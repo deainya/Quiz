@@ -96,8 +96,8 @@ bot.command('scoreit', (ctx) => {
     }
     ctx.reply(qRs.chat, qRs.dif, qRs.pts);*/
     var a = [
-        {chat: -1, t: 36, p: 100}
-        {chat: -2, t: 11, p: 100}
+        {chat: -1, t: 36, p: 100},
+        {chat: -2, t: 11, p: 100},
         {chat: -3, t: 23, p: 100}
     ];
     quickSort(a, 0, a.length - 1);
