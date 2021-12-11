@@ -2,7 +2,7 @@ module.exports = {
     ok: ['03-1.mp4', '05-1.mp4', '07-1.mp4', '09-1.mp4', '11-1.mp4', '13-1.mp4', '15-1.mp4', '17-1.mp4', '19-1.mp4'],
     nok: [],
     images: [
-        ['01-1-activation.webp'], //0
+        ['01-1-activation.png'], //0
         ['02-1-emotions.png', '02-2-emotions.jpg', '02-3-emotions.mp3'], [], //1
         ['04-1-goreading.png','04-2-goreading.jpg'], [], //3
         ['06-1-china.png'], [], [], [], [], [], [], [], [], [], [], [], //5
