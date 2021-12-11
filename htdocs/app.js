@@ -23,9 +23,41 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+// Быстрая сортировка. Смена элементов
+function partition(arr, left, right){
+    // Taking the last element as the pivot
+    const pivotValue = arr[right];
+    let pivotIndex = left;
+    for (let i = left; i < right; i++) {
+            if (arr[i] < pivotValue) {
+            // Swapping elements
+            [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
+            // Moving to next element
+            pivotIndex++;
+        }
+    }
+    // Putting the pivot value in the middle
+    [arr[pivotIndex], arr[right]] = [arr[right], arr[pivotIndex]]
+    return pivotIndex;
+};
+
+// Быстрая сортировка
+function quickSort(arr, left, right) {
+    // Base case or terminating case
+    if (left >= right) {
+        return;
+    }
+    // Returns pivotIndex
+    let index = partition(arr, left, right);
+    // Recursively apply the same logic to the left and right subarrays
+    quickSort(arr, left, index - 1);
+    quickSort(arr, index + 1, right);
+}
+
 // Реакция на must have команды
 bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Cloud Function`))
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
+// Реакция на команды
 bot.command('chatit', (ctx) => {
     ctx.reply(ctx.message.chat);
 })
@@ -52,7 +84,20 @@ bot.command('quizit', async (ctx) => {
     ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
 bot.command('scoreit', (ctx) => {
-    ctx.reply(qRs);
+    /*let a4 = [];
+    let a6 = [];
+    let a7 = [];
+    for (var i = 0; i < chats.length; i++) {
+        if (qRs[i].dif.length > 0) {
+            a4.push({chat: qRs[i].chat, t: qRs[i].dif[0], p: qRs[i].pts[17]});
+            a6.push({chat: qRs[i].chat, t: qRs[i].dif[1], p: qRs[i].pts[21]});
+            a7.push({chat: qRs[i].chat, t: qRs[i].dif[2], p: qRs[i].pts[23]});
+        }
+    }
+    ctx.reply(qRs.chat, qRs.dif, qRs.pts);*/
+    var a = [7, -2, 4, 1, 6, 5, 0, -4, 2];
+    quickSort(a, 0, a.length - 1);
+    console.log(a);
 })
 
 // Реакция на новых пользователей в группе
@@ -247,7 +292,7 @@ bot.on('photo', async (ctx) => {
                 }
             }
             console.log(c.title, qRs, qRs[i].pts.length);
-            await ctx.replyWithMarkdown('Сумма баллов: ' + qRs[i].total.toString() +
+            await ctx.replyWithMarkdown('Сумма баллов (без учёта времени): ' + qRs[i].total.toString() +
                                         '\n\n' + data.tasks[stp]);
         }
     }
