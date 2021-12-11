@@ -12,8 +12,8 @@ const yc = config.yc;
 
 // Объявляем переменные
 var qRs = [
-        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], a25:[], a27:[], total: 0},
-        {step: 0, ok: 0, t1:[], t2:[], trys:[], pts:[], a25:[], a27:[], total: 0}
+        {step: 0, ok: 0, t1:[], t2:[], dif:[], trys:[], pts:[], a25:[], a27:[], total: 0},
+        {step: 0, ok: 0, t1:[], t2:[], dif:[], trys:[], pts:[], a25:[], a27:[], total: 0}
     ];
 
 // Переводит милисекунды в минуты
@@ -38,6 +38,7 @@ bot.command('quizit', async (ctx) => {
         qRs[i].t1 = [];
         qRs[i].t1.push(Date.now());
         qRs[i].t2 = [];
+        qRs[i].dif = [];
         qRs[i].trys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].pts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         qRs[i].a25 = [];
@@ -74,7 +75,7 @@ bot.on('text', async (ctx) => {
         if (check1 && check2) {
             //Вывод следующего задания
             qRs[i].t1.push(Date.now());
-            qRs[i].t2.push(qRs[i].t1);
+            qRs[i].t2.push(Date.now());
             qRs[i].step++;
             stp = qRs[i].step;
 
@@ -117,8 +118,8 @@ bot.on('text', async (ctx) => {
                 await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                 qRs[i].ok++;
             }
-            qRs[i].t2.push(qRs[i].t1);
             qRs[i].t1.push(Date.now());
+            qRs[i].t2.push(Date.now());
             qRs[i].step++;
             stp = qRs[i].step;
 
@@ -137,8 +138,8 @@ bot.on('text', async (ctx) => {
                         await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                         qRs[i].ok++;
 
-                        qRs[i].t2.push(qRs[i].t1);
                         qRs[i].t1.push(Date.now());
+                        qRs[i].t2.push(Date.now());
                         qRs[i].step++;
                         stp = qRs[i].step;
 
@@ -157,8 +158,8 @@ bot.on('text', async (ctx) => {
                         await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                         qRs[i].ok++;
 
-                        qRs[i].t2.push(qRs[i].t1);
                         qRs[i].t1.push(Date.now());
+                        qRs[i].t2.push(Date.now());
                         qRs[i].step++;
                         stp = qRs[i].step;
 
@@ -177,8 +178,8 @@ bot.on('text', async (ctx) => {
                     let msg = 'Увы, попытки закончились 😮';
                     await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + msg, {reply_to_message_id : m});
 
-                    qRs[i].t2.push(qRs[i].t1);
                     qRs[i].t1.push(Date.now());
+                    qRs[i].t2.push(Date.now());
                     qRs[i].step++;
                     stp = qRs[i].step;
 
@@ -197,8 +198,8 @@ bot.on('text', async (ctx) => {
                 let msg = 'Увы, попытки закончились 😮';
                 await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + msg, {reply_to_message_id : m});
 
-                qRs[i].t2.push(qRs[i].t1);
                 qRs[i].t1.push(Date.now());
+                qRs[i].t2.push(Date.now());
                 qRs[i].step++;
                 stp = qRs[i].step;
 
@@ -227,8 +228,8 @@ bot.on('photo', async (ctx) => {
     if (stp == 29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
         if (qRs[i].pts[stp] >= 250) {
-            qRs[i].t2.push(qRs[i].t1);
-            qRs[i].t1.push(Date.now());
+            //qRs[i].t1.push(Date.now());
+            qRs[i].t2.push(Date.now());
             qRs[i].step++;
             stp = qRs[i].step;
 
