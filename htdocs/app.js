@@ -26,10 +26,10 @@ function getRandom(min, max) {
 // Быстрая сортировка. Смена элементов
 function partition(arr, left, right){
     // Taking the last element as the pivot
-    const pivotValue = arr[right];
+    const pivotValue = arr[right].t;
     let pivotIndex = left;
     for (let i = left; i < right; i++) {
-            if (arr[i] < pivotValue) {
+            if (arr[i].t < pivotValue) {
             // Swapping elements
             [arr[i], arr[pivotIndex]] = [arr[pivotIndex], arr[i]];
             // Moving to next element
@@ -95,7 +95,11 @@ bot.command('scoreit', (ctx) => {
         }
     }
     ctx.reply(qRs.chat, qRs.dif, qRs.pts);*/
-    var a = [7, -2, 4, 1, 6, 5, 0, -4, 2];
+    var a = [
+        {chat: -1, t: 36, p: 100}
+        {chat: -2, t: 11, p: 100}
+        {chat: -3, t: 23, p: 100}
+    ];
     quickSort(a, 0, a.length - 1);
     console.log(a);
 })
