@@ -104,13 +104,13 @@ bot.command('scoreit', async (ctx) => {
     console.log(a21);
     console.log(a23);
     //Sorting temp arrays on time values
-    quickSort(a17, 0, a17.length);
-    for (var i = 0; i < a17.length - 1; i++) {
+    quickSort(a17, 0, a17.length - 1);
+    for (var i = 0; i < a17.length; i++) {
         a17[i].p = 100 - (a17.length - i - 1);
         qRs[chats.indexOf(a17[i].chat)].pts[17] = a17[i].p;
     }
-    quickSort(a21, 0, a21.length);
-    for (var i = 0; i < a21.length - 1; i++) {
+    quickSort(a21, 0, a21.length - 1);
+    for (var i = 0; i < a21.length; i++) {
         a21[i].p = 100 - (a21.length - i - 1);
         qRs[chats.indexOf(a21[i].chat)].pts[21] = a21[i].p;
     }
