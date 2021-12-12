@@ -129,7 +129,7 @@ bot.command('scoreit', async (ctx) => {
         console.log(qRS[i].chat, qRS[i].total);
         await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
-    console.log(qRS);
+    console.log(qRs);
     await ctx.reply(qRs);
 })
 
