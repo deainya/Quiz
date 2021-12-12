@@ -83,13 +83,18 @@ bot.command('quizit', async (ctx) => {
     }
     ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
-bot.command('scoreit', (ctx) => {
-    ctx.reply(qRs);
-
+bot.command('scoreit', async (ctx) => {
     var a17 = [];
     var a21 = [];
     var a23 = [];
     for (var i = 0; i < chats.length; i++) {
+        //Hardcode for time questions
+        qRs[i].dif = [];
+        qRs[i].dif.push(qRs[i].t2[17] - qRs[i].t1[17]);
+        qRs[i].dif.push(qRs[i].t2[21] - qRs[i].t1[21]);
+        qRs[i].dif.push(qRs[i].t2[23] - qRs[i].t1[23]);
+
+        //Filling temp arrays
         if (qRs[i].pts[17] == -1) {
             a17.push({chat: qRs[i].chat, t: qRs[i].dif[0], p: 0});
         }
@@ -100,38 +105,32 @@ bot.command('scoreit', (ctx) => {
             a23.push({chat: qRs[i].chat, t: qRs[i].dif[2], p: 0});
         }
     }
-    quickSort(a17, 0, a17.length - 1);
+    //Sorting temp arrays on time values
+    quickSort(a17, 0, a17.length);
     for (var i = 0; i < a17.length; i++) {
         a17[i].p = 100 - (a17.length - i - 1);
         qRs[chats.indexOf(a17[i].chat)].pts[17] = a17[i].p;
     }
-    quickSort(a21, 0, a21.length - 1);
+    quickSort(a21, 0, a21.length);
     for (var i = 0; i < a21.length; i++) {
         a21[i].p = 100 - (a21.length - i - 1);
         qRs[chats.indexOf(a21[i].chat)].pts[21] = a21[i].p;
     }
-    quickSort(a23, 0, a23.length - 1);
+    quickSort(a23, 0, a23.length);
     for (var i = 0; i < a23.length; i++) {
         a23[i].p = 100 - (a23.length - i - 1);
         qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
     }
-
-    ctx.reply(qRs);
-
+    //Evaluating scores per each chat
     for (var i = 0; i < chats.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
         }
-        ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
+        await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
-    /*var a = [
-        {chat: -1, t: 36, p: 100},
-        {chat: -2, t: 11, p: 100},
-        {chat: -3, t: 23, p: 100}
-    ];
-    quickSort(a, 0, a.length - 1);
-    console.log(a);*/
+
+    await ctx.reply(qRs);
 })
 
 // Реакция на новых пользователей в группе
@@ -308,7 +307,7 @@ bot.on('photo', async (ctx) => {
     var m = ctx.message.message_id;
     var i = chats.indexOf(c.id);
     var stp = qRs[i].step;
-    //Вопрос 29 с получением фото
+    //Хардкод. Вопрос 29 с получением фото от пользователей
     if (stp == 29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
         if (qRs[i].pts[stp] >= 250) {
@@ -317,17 +316,7 @@ bot.on('photo', async (ctx) => {
             qRs[i].step++;
             stp = qRs[i].step;
 
-            for (var j = 0; j < qRs[i].pts.length; j++) {
-                if (j == 17 || j == 21 || j == 23) {
-                    qRs[i].dif.push(qRs[i].t2[j] - qRs[i].t1[j]);
-                }
-                else {
-                    qRs[i].total = qRs[i].total + qRs[i].pts[j];
-                }
-            }
-            console.log(c.title, qRs, qRs[i].pts.length);
-            await ctx.replyWithMarkdown('Сумма баллов (без учёта времени): ' + qRs[i].total.toString() +
-                                        '\n\n' + data.tasks[stp]);
+            await ctx.replyWithMarkdown(data.tasks[stp]);
         }
     }
 })
