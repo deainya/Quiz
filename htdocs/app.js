@@ -95,11 +95,14 @@ bot.command('scoreit', async (ctx) => {
         } else { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
         if (qRs[i].pts[21] == -1) {
             a21.push({chat: qRs[i].chat, t: qRs[i].t2[21] - qRs[i].t1[21], p: 0});
-        } else { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
+        } else { a21.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
         if (qRs[i].pts[23] == -1) {
             a23.push({chat: qRs[i].chat, t: qRs[i].t2[23] - qRs[i].t1[23], p: 0});
-        } else { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
+        } else { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
     }
+    console.log(a17);
+    console.log(a21);
+    console.log(a23);
     //Sorting temp arrays on time values
     quickSort(a17, 0, a17.length);
     for (var i = 0; i < a17.length - 1; i++) {
