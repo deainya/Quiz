@@ -318,6 +318,10 @@ bot.on('photo', async (ctx) => {
 // Ловим ошибки приложеньки
 bot.catch((err) => {
     console.log('doh', err);
+    //Trying to handle "Too Many Requests..."
+    if (err.code == 429 && err.on.method == 'sendMessage') {
+        setTimeout(bot.telegram.sendMessage(err.on.payload.chat_id, err.on.payload.text, { parse_mode: "MarkdownV2" });, 3000);
+    }
 })
 
 // Запускаем poll обработчик бота
