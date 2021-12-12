@@ -119,10 +119,11 @@ bot.command('scoreit', (ctx) => {
     ctx.reply(qRs);
 
     for (var i = 0; i < chats.length; i++) {
+        qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
         }
-        ctx.reply(qRs[i].chat, qRs[i].total);
+        ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
     /*var a = [
         {chat: -1, t: 36, p: 100},
