@@ -100,9 +100,6 @@ bot.command('scoreit', async (ctx) => {
             a23.push({chat: qRs[i].chat, t: qRs[i].t2[23] - qRs[i].t1[23], p: 0});
         } else { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
     }
-    console.log(a17);
-    console.log(a21);
-    console.log(a23);
     //Sorting temp arrays on time values
     quickSort(a17, 0, a17.length - 1);
     for (var i = 0; i < a17.length; i++) {
@@ -126,7 +123,7 @@ bot.command('scoreit', async (ctx) => {
         for (var j = 0; j < qRs[i].pts.length; j++) {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
         }
-        console.log(qRS[i].chat, qRS[i].total);
+        console.log(qRs[i].chat, qRs[i].total);
         await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
     console.log(qRs);
