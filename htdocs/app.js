@@ -117,7 +117,7 @@ bot.command('scoreit', async (ctx) => {
         qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
     }
     //Evaluating scores per each chat
-    console.log(a17, a21, a23);
+    //console.log(a17, a21, a23);
     for (var i = 0; i < chats.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
