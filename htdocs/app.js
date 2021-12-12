@@ -68,7 +68,7 @@ bot.command('quizit', async (ctx) => {
     for (var i = 0; i < chats.length; i++) {
         qRs.push({
             chat: chats[i],
-            step: stp, ok: 0, t1: [], t2: [], dif: [],
+            step: stp, ok: 0, t1: [], t2: [],
             trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -89,34 +89,29 @@ bot.command('scoreit', async (ctx) => {
     var a23 = [];
     for (var i = 0; i < chats.length; i++) {
         //Hardcode for time questions
-        qRs[i].dif = [];
-        qRs[i].dif.push(qRs[i].t2[17] - qRs[i].t1[17]);
-        qRs[i].dif.push(qRs[i].t2[21] - qRs[i].t1[21]);
-        qRs[i].dif.push(qRs[i].t2[23] - qRs[i].t1[23]);
-
         //Filling temp arrays
         if (qRs[i].pts[17] == -1) {
-            a17.push({chat: qRs[i].chat, t: qRs[i].dif[0], p: 0});
+            a17.push({chat: qRs[i].chat, t: qRs[i].t2[17] - qRs[i].t1[17], p: 0});
         }
         if (qRs[i].pts[21] == -1) {
-            a21.push({chat: qRs[i].chat, t: qRs[i].dif[1], p: 0});
+            a21.push({chat: qRs[i].chat, t: qRs[i].t2[21] - qRs[i].t1[21], p: 0});
         }
         if (qRs[i].pts[23] == -1) {
-            a23.push({chat: qRs[i].chat, t: qRs[i].dif[2], p: 0});
+            a23.push({chat: qRs[i].chat, t: qRs[i].t2[23] - qRs[i].t1[23], p: 0});
         }
     }
     //Sorting temp arrays on time values
     quickSort(a17, 0, a17.length);
-    for (var i = 0; i < a17.length; i++) {
+    for (var i = 0; i < a17.length - 1; i++) {
         a17[i].p = 100 - (a17.length - i - 1);
         qRs[chats.indexOf(a17[i].chat)].pts[17] = a17[i].p;
     }
     quickSort(a21, 0, a21.length);
-    for (var i = 0; i < a21.length; i++) {
+    for (var i = 0; i < a21.length - 1; i++) {
         a21[i].p = 100 - (a21.length - i - 1);
         qRs[chats.indexOf(a21[i].chat)].pts[21] = a21[i].p;
     }
-    quickSort(a23, 0, a23.length);
+    quickSort(a23, 0, a23.length - 1);
     for (var i = 0; i < a23.length; i++) {
         a23[i].p = 100 - (a23.length - i - 1);
         qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
@@ -129,7 +124,6 @@ bot.command('scoreit', async (ctx) => {
         }
         await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
-
     await ctx.reply(qRs);
 })
 
