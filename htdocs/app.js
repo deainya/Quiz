@@ -200,7 +200,7 @@ bot.on('text', async (ctx) => {
 
                     let msg = 'Осталось попыток: ' + (data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                     await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + msg, {reply_to_message_id : m});
-                    if (qRs[i].a25.length == 3) {
+                    if (qRs[i].a25.length == 4) {
                         await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                         qRs[i].ok++;
 
