@@ -11,8 +11,8 @@ module.exports = {
         ['06-logic.png'], [], //21
         ['07-keyboard.png'], [], //23
         ['08-rebus.png'], [], //25
-        ['09-alcatraz-1.jpg', '09-alcatraz-2.pdf'], [], //27
-        ['10-bradpitt-1.jpg', '10-bradpitt-2.pdf'], [] //29
+        ['09-alcatraz-1.png', '09-alcatraz-2.pdf'], [], //27
+        ['10-bradpitt-1.png', '10-bradpitt-2.pdf'], [] //29
     ],
     tasks: [
         //Подправить слово "Активация"
