@@ -94,10 +94,12 @@ bot.command('scoreit', async (ctx) => {
         else if (qRs[i].pts[17] == -1) {
             a17.push({chat: qRs[i].chat, t: qRs[i].t2[17] - qRs[i].t1[17], p: 0});
         } else { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
+
         if (qRs[i].pts[21].length == 0) { a21.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
         else if (qRs[i].pts[21] == -1) {
             a21.push({chat: qRs[i].chat, t: qRs[i].t2[21] - qRs[i].t1[21], p: 0});
         } else { a21.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
+
         if (qRs[i].pts[23].length == 0) { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
         else if (qRs[i].pts[23] == -1) {
             a23.push({chat: qRs[i].chat, t: qRs[i].t2[23] - qRs[i].t1[23], p: 0});
