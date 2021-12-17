@@ -109,17 +109,23 @@ bot.command('scoreit', async (ctx) => {
     quickSort(a17, 0, a17.length - 1);
     for (var i = 0; i < a17.length; i++) {
         a17[i].p = 100 - (a17.length - i - 1);
-        qRs[chats.indexOf(a17[i].chat)].pts[17] = a17[i].p;
+        if (qRs[chats.indexOf(a17[i].chat)].pts[17] == -1) {
+            qRs[chats.indexOf(a17[i].chat)].pts[17] = a17[i].p;
+        }
     }
     quickSort(a21, 0, a21.length - 1);
     for (var i = 0; i < a21.length; i++) {
         a21[i].p = 100 - (a21.length - i - 1);
-        qRs[chats.indexOf(a21[i].chat)].pts[21] = a21[i].p;
+        if (qRs[chats.indexOf(a21[i].chat)].pts[21] == -1) {
+            qRs[chats.indexOf(a21[i].chat)].pts[21] = a21[i].p;
+        }
     }
     quickSort(a23, 0, a23.length - 1);
     for (var i = 0; i < a23.length; i++) {
         a23[i].p = 100 - (a23.length - i - 1);
-        qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
+        if (qRs[chats.indexOf(a23[i].chat)].pts[23] == -1) {
+            qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
+        }
     }
     //Evaluating scores per each chat
     //console.log(a17, a21, a23);
