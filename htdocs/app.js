@@ -109,8 +109,8 @@ bot.command('scoreit', async (ctx) => {
         for (var j = 0; j < qRs[i].tspec.length; j++) {
             var k = qRs[i].tspec[j];
             if (qRs[i].pts[k].length > 0) {
-                if (qRs[i].pts[k] == -1) { arr[j].push({chat: qRs[i].chat, t: qRs[i].t2[k] - qRs[i].t1[k]}); }
-            } else { arr[j].push({chat: qRs[i].chat, t: 33000000}); }
+                if (qRs[i].pts[k] == -1) { arr[i].push({chat: qRs[i].chat, t: qRs[i].t2[k] - qRs[i].t1[k]}); }
+            } else { arr[i].push({chat: qRs[i].chat, t: 33000000}); }
         }
         //Sorting temp arrays on time values
         if (arr[i].length > 0) {
