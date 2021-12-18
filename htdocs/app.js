@@ -82,29 +82,49 @@ bot.command('quizit', async (ctx) => {
         qRs.push({
             chat: chats[i],
             step: stp, ok: 0, t1: [], t2: [],
+            aspec: [], a: [], tspec: [17, 21, 23],
+            a25: [], a27: [],
             trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
             pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            a25: [], a27: [], total: 0
+            total: 0
         });
         qRs[i].t1.push(Date.now());
-        //await bot.telegram.sendPhoto(chats[i], yc + data.images[stp][0]);
         await sendMedia(chats[i], data.images[stp]);
         await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "MarkdownV2" });
     }
     ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
 bot.command('scoreit', async (ctx) => {
-    var a17 = [];
-    var a21 = [];
-    var a23 = [];
+    var arr = [];
+    //var a17 = [];
+    //var a21 = [];
+    //var a23 = [];
     for (var i = 0; i < chats.length; i++) {
+        //Filling temp arrays
+        arr.push([]);
+        for (var j = 0; j < qRs[i].tspec.length; j++) {
+            var k = qRs[i].tspec[j];
+            if (qRs[i].pts[k].length > 0) {
+                if (qRs[i].pts[k] == -1) { arr[j].push({chat: qRs[i].chat, t: qRs[i].t2[k] - qRs[i].t1[k]}); }
+            } else { arr[j].push({chat: qRs[i].chat, t: 33000000}); }
+        }
+        //Sorting temp arrays on time values
+        if (arr[i].length > 0) {
+            quickSort(arr[i], 0, arr[i].length - 1);
+            for (var j = 0; j < arr[i].length; j++) {
+                var k = qRs[i].tspec[j];
+                if (qRs[chats.indexOf(arr[i][j].chat)].pts[k] == -1) {
+                    qRs[chats.indexOf(arr[i][j].chat)].pts[k] = 100 - (arr[i].length - j - 1); //Hardcode 100 (-1)
+                }
+            }
+        }
         //Hardcode for time questions
         //Filling temp arrays
-        if (qRs[i].pts[17].length == 0) { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
+        /*if (qRs[i].pts[17].length == 0) { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
         else if (qRs[i].pts[17] == -1) {
             a17.push({chat: qRs[i].chat, t: qRs[i].t2[17] - qRs[i].t1[17], p: 0});
         } else { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
@@ -117,10 +137,10 @@ bot.command('scoreit', async (ctx) => {
         if (qRs[i].pts[23].length == 0) { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
         else if (qRs[i].pts[23] == -1) {
             a23.push({chat: qRs[i].chat, t: qRs[i].t2[23] - qRs[i].t1[23], p: 0});
-        } else { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
-    }
+        } else { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }*/
+    //} //Commented!!!
     //Sorting temp arrays on time values
-    quickSort(a17, 0, a17.length - 1);
+    /*quickSort(a17, 0, a17.length - 1);
     for (var i = 0; i < a17.length; i++) {
         a17[i].p = 100 - (a17.length - i - 1);
         if (qRs[chats.indexOf(a17[i].chat)].pts[17] == -1) {
@@ -140,10 +160,10 @@ bot.command('scoreit', async (ctx) => {
         if (qRs[chats.indexOf(a23[i].chat)].pts[23] == -1) {
             qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
         }
-    }
+    }*/
     //Evaluating scores per each chat
     //console.log(a17, a21, a23);
-    for (var i = 0; i < chats.length; i++) {
+    //for (var i = 0; i < chats.length; i++) { //Commented!!!
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
