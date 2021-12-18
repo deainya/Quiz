@@ -185,19 +185,6 @@ bot.on('text', async (ctx) => {
             stp = qRs[i].step;
 
             await sendMedia(c.id, data.images[stp]);
-            //Hardcode
-            /*if (data.images[stp].length > 0) {
-                  await ctx.replyWithPhoto(yc + data.images[stp][0]);
-                  if (stp == 1) {
-                      await bot.telegram.sendDocument(c.id, yc + data.images[stp][1], [{disable_notification: true}]);
-                  } else if (stp == 19) {
-                      await bot.telegram.sendDocument(c.id, yc + data.images[stp][1], [{disable_notification: true}]);
-                  } else if (stp == 27) {
-                      await bot.telegram.sendDocument(c.id, yc + data.images[stp][1], [{disable_notification: true}]);
-                  } else if (stp == 29) {
-                      await bot.telegram.sendDocument(c.id, yc + data.images[stp][1], [{disable_notification: true}]);
-                  }
-            }*/
             await ctx.replyWithMarkdown(data.tasks[stp]);
         } else if (check1) {
             //Верный ответ
