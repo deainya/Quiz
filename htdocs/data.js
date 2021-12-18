@@ -6,7 +6,7 @@ module.exports = {
         [{type: 'photo', name: '01-alphabet.png'}, {type: 'document', name:'01-emotions.mp3'}], [], //1
         [{type: 'photo', name: '02-reading.png'}], [], //3
         [{type: 'sticker', name: '03-china.webp'}], [], [], [], [], [], [], [], [], [], [], [], //5
-        [{'04-chart.png'}], [], //17
+        [{type: 'photo', name: '04-chart.png'}], [], //17
         [{type: 'sticker', name: '05-ivan-1.webp'}, {type: 'document', name: '05-ivan-2.mp4'}], [], //19
         [{type: 'photo', name: '06-logic.png'}], [], //21
         [{type: 'photo', name: '07-keyboard.png'}], [], //23
