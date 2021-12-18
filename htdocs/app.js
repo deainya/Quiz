@@ -55,7 +55,7 @@ function quickSort(arr, left, right) {
 }
 
 // Отправка стикера, фотки или документа
-function sendMedia(chat, arr) {
+async function sendMedia(chat, arr) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i].type == 'sticker') {
             await bot.telegram.sendSticker(chat, yc + arr[i].name);
@@ -92,7 +92,7 @@ bot.command('quizit', async (ctx) => {
         });
         qRs[i].t1.push(Date.now());
         //await bot.telegram.sendPhoto(chats[i], yc + data.images[stp][0]);
-        sendMedia(chats[i], data.images[stp]);
+        await sendMedia(chats[i], data.images[stp]);
         await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "MarkdownV2" });
     }
     ctx.reply('Привет...\nКлюч на старт и от винта!');
