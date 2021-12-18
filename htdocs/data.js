@@ -2,17 +2,17 @@ module.exports = {
     ok: ['right-1.mp4', 'right-2.mp4', 'right-3.mp4', 'right-4.mp4', 'right-5.mp4', 'right-6.mp4', 'right-7.mp4', 'right-8.mp4', 'right-9.mp4'],
     nok: [],
     images: [
-        [{type: 'photo', name: '00-grinch.png'}], //0
+        [{type: 'photo', name: '00-servers.png'}], //0
         [{type: 'photo', name: '01-alphabet.png'}, {type: 'document', name:'01-emotions.mp3'}], [], //1
         [{type: 'photo', name: '02-reading.png'}], [], //3
-        [{type: 'photo', name: '03-china.png'}], [], [], [], [], [], [], [], [], [], [], [], //5
+        [{type: 'photo', name: '03-market.png'}], [], [], [], [], [], [], [], [], [], [], [], //5
         [{type: 'photo', name: '04-chart.png'}], [], //17
-        [{type: 'photo', name: '05-ivan-1.png'}, {type: 'document', name: '05-ivan-2.mp4'}], [], //19
+        [{type: 'photo', name: '05-ivan.png'}, {type: 'document', name: '05-ivan.mp4'}], [], //19
         [{type: 'photo', name: '06-logic.png'}], [], //21
         [{type: 'photo', name: '07-keyboard.png'}], [], //23
         [{type: 'photo', name: '08-rebus.png'}], [], //25
-        [{type: 'photo', name: '09-alcatraz-1.webp'}, {type: 'document', name: '09-alcatraz-2.pdf'}], [], //27
-        [{type: 'photo', name: '10-bradpitt-1.webp'}, {type: 'document', name: '10-bradpitt-2.pdf'}], [] //29
+        [{type: 'photo', name: '09-alcatraz-1.png'}, {type: 'document', name: '09-alcatraz-2.pdf'}], [], //27
+        [{type: 'photo', name: '10-bradpitt-1.png'}, {type: 'document', name: '10-bradpitt-2.pdf'}], [] //29
     ],
     tasks: [
         //Подправить слово "Активация"
