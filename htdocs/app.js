@@ -12,6 +12,8 @@ const yc = config.yc;
 
 // Объявляем переменные
 var qRs = [];
+var aspec = [25, 27];
+var tspec = [17, 21, 23];
 
 // Переводит милисекунды в минуты
 function toMin(mSec) {
@@ -82,7 +84,7 @@ bot.command('quizit', async (ctx) => {
         qRs.push({
             chat: chats[i],
             step: stp, ok: 0, t1: [], t2: [],
-            aspec: [], a: [], tspec: [17, 21, 23],
+            a: [],
             a25: [], a27: [],
             trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -100,16 +102,46 @@ bot.command('quizit', async (ctx) => {
 })
 bot.command('scoreit', async (ctx) => {
     var arr = [];
+    for (var i = 0; i < tspec.length; i++) {
+        arr.push([]);
+        var k = tspec[i];
+        for (var j = 0; j < chats.length; j++) {
+            if (qRs[j].pts[k] != 0) { arr[i].push({chat: qRs[j].chat, t: qRs[j].t2[k] - qRs[j].t1[k]}); }
+            else { arr[i].push({chat: qRs[j].chat, t: 33000000}); }
+        }
+        quickSort(arr[i], 0, arr[i].length - 1);
+        for (var j = 0; j < arr[i].length; j++) {
+            if (qRs[chats.indexOf(arr[i][j].chat)].pts[k] != 0) {
+                qRs[chats.indexOf(arr[i][j].chat)].pts[k] = 100 - (arr[i].length - j - 1); //Hardcode 100 (-1)
+            }
+        }
+    }
+
+    for (var i = 0; i < chats.length; i++) {
+        qRs[i].total = 0;
+        for (var j = 0; j < qRs[i].pts.length; j++) {
+            qRs[i].total = qRs[i].total + qRs[i].pts[j];
+        }
+        console.log(qRs[i].chat, qRs[i].total);
+        await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
+    }
+    console.log(qRs);
+    await ctx.reply(qRs);
+
+
     //var a17 = [];
     //var a21 = [];
     //var a23 = [];
+
+    /*
     for (var i = 0; i < chats.length; i++) {
         //Filling temp arrays
-        arr.push([]);
         for (var j = 0; j < qRs[i].tspec.length; j++) {
+            arr.push([]);
             var k = qRs[i].tspec[j];
             if (qRs[i].pts[k].length > 0) {
                 if (qRs[i].pts[k] == -1) { arr[i].push({chat: qRs[i].chat, t: qRs[i].t2[k] - qRs[i].t1[k]}); }
+                else { arr[i].push({chat: qRs[i].chat, t: 33000000}); }
             } else { arr[i].push({chat: qRs[i].chat, t: 33000000}); }
         }
         //Sorting temp arrays on time values
@@ -122,6 +154,8 @@ bot.command('scoreit', async (ctx) => {
                 }
             }
         }
+    */
+
         //Hardcode for time questions
         //Filling temp arrays
         /*if (qRs[i].pts[17].length == 0) { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
@@ -164,6 +198,8 @@ bot.command('scoreit', async (ctx) => {
     //Evaluating scores per each chat
     //console.log(a17, a21, a23);
     //for (var i = 0; i < chats.length; i++) { //Commented!!!
+
+    /*
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
@@ -173,6 +209,8 @@ bot.command('scoreit', async (ctx) => {
     }
     console.log(qRs);
     await ctx.reply(qRs);
+    */
+
 })
 
 // Реакция на новых пользователей в группе
