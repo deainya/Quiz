@@ -54,8 +54,21 @@ function quickSort(arr, left, right) {
     quickSort(arr, index + 1, right);
 }
 
+// Отправка стикера, фотки или документа
+function sendMedia(chat, arr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].type == 'sticker') {
+            await bot.telegram.sendSticker(chat, yc + arr[i].name);
+        } else if (arr[i].type == 'photo') {
+            await bot.telegram.sendPhoto(chat, yc + arr[i].name);
+        } else if (arr[i].type == 'document') {
+            await bot.telegram.sendDocument(chat, yc + arr[i].name, [{disable_notification: true}]);
+        }
+    }
+}
+
 // Реакция на must have команды
-bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Cloud Function`))
+bot.start((ctx) => ctx.reply(`Hi. My name is Quiz.\nI'm providing Quiz for IT.\nI work on Yandex Cloud`))
 bot.help((ctx) => ctx.reply(`Hi, ${ctx.message.from.first_name}.\nI can say hi and nothing more 🙂`))
 // Реакция на команды
 bot.command('chatit', (ctx) => {
@@ -78,7 +91,8 @@ bot.command('quizit', async (ctx) => {
             a25: [], a27: [], total: 0
         });
         qRs[i].t1.push(Date.now());
-        await bot.telegram.sendPhoto(chats[i], yc + data.images[stp][0]);
+        //await bot.telegram.sendPhoto(chats[i], yc + data.images[stp][0]);
+        sendMedia(chats[i], data.images[stp]);
         await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "MarkdownV2" });
     }
     ctx.reply('Привет...\nКлюч на старт и от винта!');
