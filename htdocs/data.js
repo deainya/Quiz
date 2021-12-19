@@ -72,44 +72,44 @@ module.exports = {
         "--\n*ТЕПЕРЬ ТОЧНО ВСЁ!*\n\nВы проявили себя как настоящие ДИТовцы: умные, смелые и веселые!\n\nНадеюсь, до конца года Гринч больше не будет проказничать. А если и будет, вы точно сможете его проучить!\n\n*С наступающим Новым Годом и хороших праздников!*"
     ],
     conds: [
-        {answer: "!насвязи", time: 10, tryouts: 0, points: 0},
-        {answer: "!характер", time: 7, tryouts: 3, points: 50},
-        {answer: "!уровень", time: 3, tryouts: 0, points: 0},
-        {answer: "!верн", time: 7, tryouts: 3, points: 50},
-        {answer: "!уровень", time: 3, tryouts: 0, points: 0},
-        {answer: "!старт", time: 3, tryouts: 0, points: 0},
-        {answer: "!люстра", time: 2, tryouts: 3, points: 10},
-        {answer: "!душ", time: 2, tryouts: 3, points: 10},
-        {answer: "!спальныймешок", time: 2, tryouts: 3, points: 10},
-        {answer: "!велосипед", time: 2, tryouts: 3, points: 10},
-        {answer: "!рация", time: 2, tryouts: 3, points: 10},
-        {answer: "!фонарик", time: 2, tryouts: 3, points: 10},
-        {answer: "!шлем", time: 2, tryouts: 3, points: 10},
-        {answer: "!палатка", time: 2, tryouts: 3, points: 10},
-        {answer: "!чай", time: 2, tryouts: 3, points: 10},
-        {answer: "!удочка", time: 2, tryouts: 3, points: 10},
-        {answer: "!уровень", time: 3, tryouts: 0, points: 0},
+        {answer: ["!насвязи"], time: 10, tryouts: 0, points: 0},
+        {answer: ["!характер"], time: 7, tryouts: 3, points: 50},
+        {answer: ["!уровень"], time: 3, tryouts: 0, points: 0},
+        {answer: ["!верн"], time: 7, tryouts: 3, points: 50},
+        {answer: ["!уровень"], time: 3, tryouts: 0, points: 0},
+        {answer: ["!старт"], time: 3, tryouts: 0, points: 0},
+        {answer: ["!люстра"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!душ"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!спальныймешок"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!велосипед"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!рация"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!фонарик"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!шлем"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!палатка"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!чай"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!удочка"], time: 2, tryouts: 3, points: 10},
+        {answer: ["!уровень"], time: 3, tryouts: 0, points: 0},
         //17 time 100 (-1)
-        {answer: "!капитал", time: 10, tryouts: 3, points: -1},
-        {answer: "!уровень", time: 3, tryouts: 0, points: 0},
-        {answer: "!фотошоп", time: 15, tryouts: 3, points: 100},
-        {answer: "!мыотдохнули", time: 10, tryouts: 0, points: 0},
+        {answer: ["!капитал"], time: 10, tryouts: 3, points: -1},
+        {answer: ["!уровень"], time: 3, tryouts: 0, points: 0},
+        {answer: ["!фотошоп"], time: 15, tryouts: 3, points: 100},
+        {answer: ["!мыотдохнули"], time: 10, tryouts: 0, points: 0},
         //21 time 100 (-1)
-        {answer: "!31телефон", time: 35, tryouts: 3, points: -1},
-        {answer: "!уровень", time: 3, tryouts: 0, points: 0},
+        {answer: ["!31телефон"], time: 35, tryouts: 3, points: -1},
+        {answer: ["!уровень"], time: 3, tryouts: 0, points: 0},
         //23 time 100 (-1)
-        {answer: "!функция", time: 15, tryouts: 3, points: -1},
-        {answer: "!уровень", time: 3, tryouts: 0, points: 0},
+        {answer: ["!функция"], time: 15, tryouts: 3, points: -1},
+        {answer: ["!уровень"], time: 3, tryouts: 0, points: 0},
         //25 special (includes)
         {answer: ["!сначалапрямо", "!потомналево", "!постучатьтрираза", "!ивойти"], time: 7, tryouts: 6, points: 25},
-        {answer: "!уровень", time: 3, tryouts: 0, points: 0},
+        {answer: ["!уровень"], time: 3, tryouts: 0, points: 0},
         //27 special (includes)
         {answer: ["!наручники","!красный","!4","!дракон", "!франциск"], time: 35, tryouts: 10, points: 30},
-        {answer: "!мыотдохнули", time: 10, tryouts: 0, points: 0},
+        {answer: ["!мыотдохнули"], time: 10, tryouts: 0, points: 0},
         //29 photo
-        {answer: "!ойвсё", time: 20, tryouts: 0, points: 50},
+        {answer: ["!ойвсё"], time: 20, tryouts: 0, points: 50},
         //30 fin
-        {answer: "", time: 0, tryouts: 0, points: 0}
+        {answer: [""], time: 0, tryouts: 0, points: 0}
     ],
     Qs21: [ // 21 includes
         "?1утка", "?2душ", "?3холодильник", "?4повар", "?5студент", "?6кровать",
@@ -143,5 +143,7 @@ module.exports = {
         "Неправильно. Какие еще варианты? 🙃",
         "Нет-нет, это не то. Жду другой вариант 😐",
         "Это неправильный ответ. Подумай еще 🤔"
-    ]
+    ],
+    left_try: "Осталось попыток: ",
+    last_try: "Увы, попытки закончились 😮"
 }
