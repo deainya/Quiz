@@ -177,7 +177,7 @@ bot.on('text', async (ctx) => {
         let chk3 = txt.substr(0, 1) == '!';
         let chk4 = txt.substr(0, 3) == '!31';
         let chk5 = txt.substr(0, 1) == '?';
-        var stp25 = stp == 21;
+        var stp21 = stp == 21;
         var stp25 = stp == 25;
         var stp27 = stp == 27;
         var stp29 = stp == 29;
