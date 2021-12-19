@@ -147,12 +147,9 @@ bot.command('scoreit', async (ctx) => {
         //console.log(qRs[i].chat, qRs[i].title, qRs[i].total);
         score.push({id: qRs[i].chat, title: qRs[i].title, t: qRs[i].total});
         str = str + qRs[i].title + ' (' + qRs[i].chat.toString() + ')\n'
-              + 'step: ' + qRs[i].step + '\n'
-              + 't1:' + qRs[i].t1.toString() + '\n'
-              + 't2: ' + qRs[i].t2.toString() + '\n'
-              + 'trys: ' + qRs[i].trys.toString() + '\n'
-              + 'pts: ' + qRs[i].pts.toString() + '\n'
-              + 'total: ' + qRs[i].total.toString() + '\n\n';
+              + 't: ' + (qRs[i].t2 - qRs[i].t1).toString() + '\n'
+              + 'try: ' + qRs[i].trys.toString() + '\n'
+              + 'pts: ' + qRs[i].pts.toString() + '\n';
     }
     var msg = '';
     //console.log(qRs);
