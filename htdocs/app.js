@@ -146,13 +146,15 @@ bot.command('scoreit', async (ctx) => {
         //console.log(qRs[i].chat, qRs[i].title, qRs[i].total);
         score.push({id: qRs[i].chat, title: qRs[i].title, t: qRs[i].total});
     }
-    //console.log(qRs);
-    await ctx.reply(qRs);
+    var msg = '';
+    console.log(qRs);
+    //await ctx.reply(qRs);
     quickSort(score, 0, score.length - 1);
     for (var i = 0; i < score.length; i++) {
-        await ctx.reply(score[i].t.toString() + ' - ' +
-                        score[i].title + ' (' + score[i].id.toString() + ')');
+        msg = msg + score[i].t.toString() + ' - ' +
+                    score[i].title + ' (' + score[i].id.toString() + ')\n');
     }
+    await ctx.reply(msg);
 })
 
 // Реакция на новых пользователей в группе
