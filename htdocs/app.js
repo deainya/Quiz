@@ -178,7 +178,7 @@ bot.on('text', async (ctx) => {
             //qRs[i].t1.push(Date.now());
             //qRs[i].t2.push(Date.now());
             //qRs[i].step++;
-            stp = nextStep(qTs[i], true); //qRs[i].step;
+            stp = nextStep(qRs[i], true); //qRs[i].step;
 
             await sendMedia(c.id, data.images[stp]);
             await ctx.replyWithMarkdown(data.tasks[stp]);
