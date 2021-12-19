@@ -152,7 +152,7 @@ bot.command('scoreit', async (ctx) => {
               + 't2: ' + qRs[i].t2.toString() + '\n'
               + 'trys: ' + qRs[i].trys.toString() + '\n'
               + 'pts: ' + qRs[i].pts.toString() + '\n'
-              + 'total: ' + qRs[i].total.toString();
+              + 'total: ' + qRs[i].total.toString() + '\n\n';
     }
     var msg = '';
     //console.log(qRs);
