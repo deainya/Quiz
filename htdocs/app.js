@@ -199,10 +199,11 @@ bot.on('text', async (ctx) => {
                 let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
                 await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + try1 + trs, {reply_to_message_id : m});
 
-                if (qRs[i].a[stp].length == data.conds[stp].answer.length && (stp < 6 || stp > 14)) {
-                    await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
-                    qRs[i].ok++;
-
+                if (qRs[i].a[stp].length == data.conds[stp].answer.length) {
+                    if (stp < 6 || stp > 14) {
+                        await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
+                        qRs[i].ok++;
+                    }
                     stp = nextStep(qRs[i], true);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 }
