@@ -57,14 +57,14 @@ function quickSort(arr, left, right) {
 }
 
 // Отправка стикера, фотки или документа
-async function sendMedia(chat, arr) {
+async function sendMedia(chat_id, arr) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i].type == 'sticker') {
-            await bot.telegram.sendSticker(chat, yc + arr[i].name);
+            await bot.telegram.sendSticker(chat_id, yc + arr[i].name);
         } else if (arr[i].type == 'photo') {
-            await bot.telegram.sendPhoto(chat, yc + arr[i].name);
+            await bot.telegram.sendPhoto(chat_id, yc + arr[i].name);
         } else if (arr[i].type == 'document') {
-            await bot.telegram.sendDocument(chat, yc + arr[i].name, [{disable_notification: true}]);
+            await bot.telegram.sendDocument(chat_id, yc + arr[i].name, [{disable_notification: true}]);
         }
     }
 }
@@ -78,11 +78,16 @@ bot.command('chatit', (ctx) => {
 })
 bot.command('quizit', async (ctx) => {
     var c = ctx.message.chat;
-    var stp = 0
+    var stp = 0;
+    var chat_title = '';
     qRs = [];
     for (var i = 0; i < chats.length; i++) {
+        await bot.telegram.getChat(chats[i])
+        .then(chat => chat_title = chat.title)
+        .catch(err => console.error(err));
+
         qRs.push({
-            chat: chats[i],
+            chat: chats[i], title: chat_title,
             step: stp, ok: 0, t1: [], t2: [],
             a: [],
             a25: [], a27: [],
@@ -102,13 +107,16 @@ bot.command('quizit', async (ctx) => {
 })
 bot.command('scoreit', async (ctx) => {
     var arr = [];
+    var score = [];
     for (var i = 0; i < tspec.length; i++) {
+        //Filling temp array
         arr.push([]);
         var k = tspec[i];
         for (var j = 0; j < chats.length; j++) {
             if (qRs[j].pts[k] != 0) { arr[i].push({chat: qRs[j].chat, t: qRs[j].t2[k] - qRs[j].t1[k]}); }
-            else { arr[i].push({chat: qRs[j].chat, t: 33000000}); }
+            else { arr[i].push({chat: qRs[j].chat, t: 33000000}); } //Hardcode longtime
         }
+        //Sorting temp array on time values
         quickSort(arr[i], 0, arr[i].length - 1);
         console.log(arr);
         for (var j = 0; j < arr[i].length; j++) {
@@ -117,104 +125,23 @@ bot.command('scoreit', async (ctx) => {
             }
         }
     }
-
+    //Evaluating scores per each chat
     for (var i = 0; i < chats.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
         }
+        score.push({id: qRs[i].chat, title: qRs[i].title, t: qRs[i].total});
         //console.log(qRs[i].chat, qRs[i].total);
-        await bot.telegram.getChat(qRs[i].chat)
-        .then(chat => console.log(chat))
-        .catch(err => console.error(err));
-        await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
+        //await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
     //console.log(qRs);
     await ctx.reply(qRs);
-
-
-    //var a17 = [];
-    //var a21 = [];
-    //var a23 = [];
-
-    /*
-    for (var i = 0; i < chats.length; i++) {
-        //Filling temp arrays
-        for (var j = 0; j < qRs[i].tspec.length; j++) {
-            arr.push([]);
-            var k = qRs[i].tspec[j];
-            if (qRs[i].pts[k].length > 0) {
-                if (qRs[i].pts[k] == -1) { arr[i].push({chat: qRs[i].chat, t: qRs[i].t2[k] - qRs[i].t1[k]}); }
-                else { arr[i].push({chat: qRs[i].chat, t: 33000000}); }
-            } else { arr[i].push({chat: qRs[i].chat, t: 33000000}); }
-        }
-        //Sorting temp arrays on time values
-        if (arr[i].length > 0) {
-            quickSort(arr[i], 0, arr[i].length - 1);
-            for (var j = 0; j < arr[i].length; j++) {
-                var k = qRs[i].tspec[j];
-                if (qRs[chats.indexOf(arr[i][j].chat)].pts[k] == -1) {
-                    qRs[chats.indexOf(arr[i][j].chat)].pts[k] = 100 - (arr[i].length - j - 1); //Hardcode 100 (-1)
-                }
-            }
-        }
-    */
-
-        //Hardcode for time questions
-        //Filling temp arrays
-        /*if (qRs[i].pts[17].length == 0) { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
-        else if (qRs[i].pts[17] == -1) {
-            a17.push({chat: qRs[i].chat, t: qRs[i].t2[17] - qRs[i].t1[17], p: 0});
-        } else { a17.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
-
-        if (qRs[i].pts[21].length == 0) { a21.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
-        else if (qRs[i].pts[21] == -1) {
-            a21.push({chat: qRs[i].chat, t: qRs[i].t2[21] - qRs[i].t1[21], p: 0});
-        } else { a21.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
-
-        if (qRs[i].pts[23].length == 0) { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }
-        else if (qRs[i].pts[23] == -1) {
-            a23.push({chat: qRs[i].chat, t: qRs[i].t2[23] - qRs[i].t1[23], p: 0});
-        } else { a23.push({chat: qRs[i].chat, t: 33000000, p: 0}); }*/
-    //} //Commented!!!
-    //Sorting temp arrays on time values
-    /*quickSort(a17, 0, a17.length - 1);
-    for (var i = 0; i < a17.length; i++) {
-        a17[i].p = 100 - (a17.length - i - 1);
-        if (qRs[chats.indexOf(a17[i].chat)].pts[17] == -1) {
-            qRs[chats.indexOf(a17[i].chat)].pts[17] = a17[i].p;
-        }
+    quickSort(score, 0, score.length - 1);
+    for (var i = 0; i < score.length; i++) {
+        await ctx.reply(score[i].t.toString() + ' - ' +
+                        score[i].title + ' (' + score[i].id.toString() + ')');
     }
-    quickSort(a21, 0, a21.length - 1);
-    for (var i = 0; i < a21.length; i++) {
-        a21[i].p = 100 - (a21.length - i - 1);
-        if (qRs[chats.indexOf(a21[i].chat)].pts[21] == -1) {
-            qRs[chats.indexOf(a21[i].chat)].pts[21] = a21[i].p;
-        }
-    }
-    quickSort(a23, 0, a23.length - 1);
-    for (var i = 0; i < a23.length; i++) {
-        a23[i].p = 100 - (a23.length - i - 1);
-        if (qRs[chats.indexOf(a23[i].chat)].pts[23] == -1) {
-            qRs[chats.indexOf(a23[i].chat)].pts[23] = a23[i].p;
-        }
-    }*/
-    //Evaluating scores per each chat
-    //console.log(a17, a21, a23);
-    //for (var i = 0; i < chats.length; i++) { //Commented!!!
-
-    /*
-        qRs[i].total = 0;
-        for (var j = 0; j < qRs[i].pts.length; j++) {
-            qRs[i].total = qRs[i].total + qRs[i].pts[j];
-        }
-        console.log(qRs[i].chat, qRs[i].total);
-        await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
-    }
-    console.log(qRs);
-    await ctx.reply(qRs);
-    */
-
 })
 
 // Реакция на новых пользователей в группе
