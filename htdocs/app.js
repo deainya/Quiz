@@ -152,7 +152,7 @@ bot.command('scoreit', async (ctx) => {
     quickSort(score, 0, score.length - 1);
     for (var i = 0; i < score.length; i++) {
         msg = msg + score[i].t.toString() + ' - ' +
-                    score[i].title + ' (' + score[i].id.toString() + ')\n');
+                    score[i].title + ' (' + score[i].id.toString() + ')\n';
     }
     await ctx.reply(msg);
 })
