@@ -109,7 +109,9 @@ bot.command('scoreit', async (ctx) => {
             if (qRs[j].pts[k] != 0) { arr[i].push({chat: qRs[j].chat, t: qRs[j].t2[k] - qRs[j].t1[k]}); }
             else { arr[i].push({chat: qRs[j].chat, t: 33000000}); }
         }
+        console.log(arr);
         quickSort(arr[i], 0, arr[i].length - 1);
+        console.log(arr);
         for (var j = 0; j < arr[i].length; j++) {
             if (qRs[chats.indexOf(arr[i][j].chat)].pts[k] != 0) {
                 qRs[chats.indexOf(arr[i][j].chat)].pts[k] = 100 - (arr[i].length - j - 1); //Hardcode 100 (-1)
