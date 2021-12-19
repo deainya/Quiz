@@ -101,7 +101,6 @@ bot.command('quizit', async (ctx) => {
             a: [[],[],[],[],[], [],[],[],[],[],
                 [],[],[],[],[], [],[],[],[],[],
                 [],[],[],[],[], [],[],[],[],[]],
-            a25: [], a27: [],
             trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -129,7 +128,7 @@ bot.command('scoreit', async (ctx) => {
         }
         //Sorting temp array on time values
         quickSort(arr[i], 0, arr[i].length - 1);
-        console.log(arr);
+        //console.log(arr);
         for (var j = 0; j < arr[i].length; j++) {
             if (qRs[chats.indexOf(arr[i][j].chat)].pts[k] != 0) {
                 qRs[chats.indexOf(arr[i][j].chat)].pts[k] = 100 - j; //Hardcode 100 (-1)
@@ -171,7 +170,6 @@ bot.on('text', async (ctx) => {
 
     if (stp < data.tasks.length-1) {
         //chk = (qRs[i].answer).test(txt);
-        //let chk1 = data.conds[stp].answer == txt;
         let chk1 = data.conds[stp].answer.includes(txt);
         let chk2 = data.conds[stp].tryouts == 0;
         let chk3 = txt.substr(0, 1) == '!';
@@ -213,57 +211,8 @@ bot.on('text', async (ctx) => {
                     stp = nextStep(qRs[i], true);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 }
-            }
-
-            /*
-            //source...
-            qRs[i].pts[stp] = data.conds[stp].points;
-            qRs[i].trys[stp]++;
-            let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
-            await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + try1 + trs, {reply_to_message_id : m});
-
-            //Hardcode
-            if (stp < 6 || stp > 14) {
-                await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
-                qRs[i].ok++;
-            }
-            stp = nextStep(qRs[i], true);
-            await ctx.replyWithMarkdown(data.tasks[stp]);
-
-        } else if (chk0 && (stp25 || stp27)) {
-            if (data.conds[stp].answer.includes(txt)) {
-                //Хардкод. Верный ответ на вопрос 25
-                if (stp25 && !qRs[i].a25.includes(txt)) {
-                    qRs[i].a25.push(txt);
-                    qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
-                    qRs[i].trys[stp]++;
-                    let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
-                    await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + try1 + trs, {reply_to_message_id : m});
-                    if (qRs[i].a25.length == 4) {
-                        await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
-                        qRs[i].ok++;
-
-                        stp = nextStep(qRs[i], true);
-                        await ctx.replyWithMarkdown(data.tasks[stp]);
-                    }
-                }
-                //Хардкод. Верный ответ на вопрос 27
-                if (stp27 && !qRs[i].a27.includes(txt)) {
-                    qRs[i].a27.push(txt);
-                    qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
-                    qRs[i].trys[stp]++;
-                    let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
-                    await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + try1 + trs, {reply_to_message_id : m});
-                    if (qRs[i].a27.length == 5) {
-                        await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
-                        qRs[i].ok++;
-
-                        stp = nextStep(qRs[i], true);
-                        await ctx.replyWithMarkdown(data.tasks[stp]);
-                    }
-                }
-            }*/ else {
-                /*//Неверный ответ на вопросы 25 и 27*/
+            } else {
+                //Неверный ответ на вопросы
                 qRs[i].trys[stp]++;
                 let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
                 //Исчерпали все попытки
@@ -271,7 +220,6 @@ bot.on('text', async (ctx) => {
                     await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try1 + trs, {reply_to_message_id : m});
                 } else {
                     await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try2, {reply_to_message_id : m});
-
                     stp = nextStep(qRs[i], true);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 }
@@ -285,7 +233,6 @@ bot.on('text', async (ctx) => {
                 await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try1 + trs, {reply_to_message_id : m});
             } else {
                 await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
-
                 stp = nextStep(qRs[i], true);
                 await ctx.replyWithMarkdown(data.tasks[stp]);
             }
@@ -304,6 +251,7 @@ bot.on('text', async (ctx) => {
 
 // Реакция на фото
 bot.on('photo', async (ctx) => {
+    var c = ctx.message.chat;
     var m = ctx.message.message_id;
     var i = chats.indexOf(c.id);
     var stp = qRs[i].step;
@@ -311,7 +259,7 @@ bot.on('photo', async (ctx) => {
     //Хардкод. Вопрос 29 с получением фото от пользователей
     if (stp29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
-        await ctx.replyWithMarkdown('*' + data.right[getRandom(6, 10)] + '*', {reply_to_message_id : m});
+        await ctx.replyWithMarkdown('*'+data.right[getRandom(6, 10)]+'*', {reply_to_message_id : m});
         if (qRs[i].pts[stp] >= 250) {
             stp = nextStep(qRs[i], false);
             await ctx.replyWithMarkdown(data.tasks[stp]);
