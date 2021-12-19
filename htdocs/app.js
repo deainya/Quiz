@@ -139,6 +139,7 @@ bot.command('scoreit', async (ctx) => {
     //Evaluating scores per each chat
     var score = [];
     var str = '';
+    var time = '';
     for (var i = 0; i < chats.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
@@ -147,13 +148,16 @@ bot.command('scoreit', async (ctx) => {
         //console.log(qRs[i].chat, qRs[i].title, qRs[i].total);
         score.push({id: qRs[i].chat, title: qRs[i].title, t: qRs[i].total});
         str = str + qRs[i].title + ' (' + qRs[i].chat.toString() + ')\n'
-              + 't: ' + (qRs[i].t2 - qRs[i].t1).toString() + '\n'
               + 'try: ' + qRs[i].trys.toString() + '\n'
               + 'pts: ' + qRs[i].pts.toString() + '\n';
+        time = time + qRs[i].chat.toString() + ')\n'
+              + 't1: ' + qRs[i].t1.toString() + '\n'
+              + 't2: ' + qRs[i].t2.toString() + '\n';
     }
     var msg = '';
     //console.log(qRs);
     await ctx.reply(str);
+    await ctx.reply(time);
     quickSort(score, 0, score.length - 1);
     for (var i = 0; i < score.length; i++) {
         msg = msg + score[i].t.toString() + ' - ' +
