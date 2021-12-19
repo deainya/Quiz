@@ -167,57 +167,47 @@ bot.on('text', async (ctx) => {
     //console.log(c.title);
     if (stp < data.tasks.length-1) {
         //check = (qRs[i].answer).test(txt);
-        let check0 = txt.substr(0, 1) == '!';
-        let check1 = data.conds[stp].answer == txt;
-        let check2 = data.conds[stp].tryouts == 0;
-        let check3 = txt.substr(0, 1) == '?';
+        let chk0 = txt.substr(0, 1) == '!';
+        let chk1 = data.conds[stp].answer == txt;
+        let chk2 = data.conds[stp].tryouts == 0;
+        let chk3 = txt.substr(0, 1) == '?';
+        var stp25 = stp == 21;
         var stp25 = stp == 25;
         var stp27 = stp == 27;
-        if (check1 && check2) {
+        var stp29 = stp == 29;
+        if (chk1 && chk2) {
             //Вывод следующего задания
-            //qRs[i].t1.push(Date.now());
-            //qRs[i].t2.push(Date.now());
-            //qRs[i].step++;
-            stp = nextStep(qRs[i], true); //qRs[i].step;
-
+            if (stp29) {stp = nextStep(qRs[i], false);} //Hardcode
+            else {stp = nextStep(qRs[i], true);}
             await sendMedia(c.id, data.images[stp]);
             await ctx.replyWithMarkdown(data.tasks[stp]);
-        } else if (check1) {
+        } else if (chk1) {
             //Верный ответ
             qRs[i].pts[stp] = data.conds[stp].points;
             qRs[i].trys[stp]++;
-
-            let msg = 'Осталось попыток: ' + (data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
+            let msg = 'Осталось попыток: ' + (data.conds[stp].tryouts - qRs[i].trys[stp]).toString();
             await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + msg, {reply_to_message_id : m});
+            //Hardcode
             if (stp < 6 || stp > 14) {
                 await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                 qRs[i].ok++;
             }
-            qRs[i].t1.push(Date.now());
-            qRs[i].t2.push(Date.now());
-            qRs[i].step++;
-            stp = qRs[i].step;
-
+            stp = nextStep(qRs[i], true);
             await ctx.replyWithMarkdown(data.tasks[stp]);
-        } else if (check0 && (stp25 || stp27)) {
+        } else if (chk0 && (stp25 || stp27)) {
             if (data.conds[stp].answer.includes(txt)) {
                 //Хардкод. Верный ответ на вопрос 25
                 if (stp25 && !qRs[i].a25.includes(txt)) {
                     qRs[i].a25.push(txt);
                     qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                     qRs[i].trys[stp]++;
-
                     let msg = 'Осталось попыток: ' + (data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                     await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + msg, {reply_to_message_id : m});
                     if (qRs[i].a25.length == 4) {
                         await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                         qRs[i].ok++;
 
-                        qRs[i].t1.push(Date.now());
-                        qRs[i].t2.push(Date.now());
-                        qRs[i].step++;
-                        stp = qRs[i].step;
-
+                        stp = nextStep(qRs[i], true);
                         await ctx.replyWithMarkdown(data.tasks[stp]);
                     }
                 }
@@ -226,18 +216,13 @@ bot.on('text', async (ctx) => {
                     qRs[i].a27.push(txt);
                     qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                     qRs[i].trys[stp]++;
-
                     let msg = 'Осталось попыток: ' + (data.conds[stp].tryouts-qRs[i].trys[stp]).toString();
                     await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + msg, {reply_to_message_id : m});
                     if (qRs[i].a27.length == 5) {
                         await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                         qRs[i].ok++;
 
-                        qRs[i].t1.push(Date.now());
-                        qRs[i].t2.push(Date.now());
-                        qRs[i].step++;
-                        stp = qRs[i].step;
-
+                        stp = nextStep(qRs[i], true);
                         await ctx.replyWithMarkdown(data.tasks[stp]);
                     }
                 }
@@ -253,15 +238,11 @@ bot.on('text', async (ctx) => {
                     let msg = 'Увы, попытки закончились 😮';
                     await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + msg, {reply_to_message_id : m});
 
-                    qRs[i].t1.push(Date.now());
-                    qRs[i].t2.push(Date.now());
-                    qRs[i].step++;
-                    stp = qRs[i].step;
-
+                    stp = nextStep(qRs[i], true);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 }
             }
-        } else if (check0 && !check2) {
+        } else if (chk0 && !chk2) {
             //Неверный ответ
             qRs[i].trys[stp]++;
             let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
@@ -273,16 +254,12 @@ bot.on('text', async (ctx) => {
                 let msg = 'Увы, попытки закончились 😮';
                 await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + msg, {reply_to_message_id : m});
 
-                qRs[i].t1.push(Date.now());
-                qRs[i].t2.push(Date.now());
-                qRs[i].step++;
-                stp = qRs[i].step;
-
+                stp = nextStep(qRs[i], true);
                 await ctx.replyWithMarkdown(data.tasks[stp]);
             }
         } else {
             //Специальные вопросы
-            if (stp == 21 && check3) {
+            if (chk3 && stp21) {
                 if (data.Qs21.includes(txt)) {
                     await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*', {reply_to_message_id : m});
                 } else {
@@ -304,11 +281,7 @@ bot.on('photo', async (ctx) => {
     if (stp29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
         if (qRs[i].pts[stp] >= 250) {
-            //qRs[i].t1.push(Date.now());
-            qRs[i].t2.push(Date.now());
-            qRs[i].step++;
-            stp = qRs[i].step;
-
+            stp = nextStep(qRs[i], false);
             await ctx.replyWithMarkdown(data.tasks[stp]);
         }
     }
