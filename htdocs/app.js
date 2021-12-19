@@ -199,7 +199,7 @@ bot.on('text', async (ctx) => {
             stp = qRs[i].step;
 
             await ctx.replyWithMarkdown(data.tasks[stp]);
-        } else if (check0 && (stp25 || stp27))) {
+        } else if (check0 && (stp25 || stp27)) {
             if (data.conds[stp].answer.includes(txt)) {
                 //Хардкод. Верный ответ на вопрос 25
                 if (stp25 && !qRs[i].a25.includes(txt)) {
