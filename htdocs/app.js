@@ -56,6 +56,14 @@ function quickSort(arr, left, right) {
     quickSort(arr, index + 1, right);
 }
 
+// Следующий шаг
+function nextStep(arr, isntFinal) {
+    if (isntFinal) { arr.t1.push(Date.now()); }
+    arr.t2.push(Date.now());
+    arr.step++;
+    return arr.step;
+}
+
 // Отправка стикера, фотки или документа
 async function sendMedia(chat_id, arr) {
     for (var i = 0; i < arr.length; i++) {
@@ -85,12 +93,10 @@ bot.command('quizit', async (ctx) => {
         await bot.telegram.getChat(chats[i])
         .then(chat => chat_title = chat.title)
         .catch(err => console.error(err));
-
         qRs.push({
             chat: chats[i], title: chat_title,
             step: stp, ok: 0, t1: [], t2: [],
-            a: [],
-            a25: [], a27: [],
+            a: [], a25: [], a27: [],
             trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
@@ -106,8 +112,8 @@ bot.command('quizit', async (ctx) => {
     ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
 bot.command('scoreit', async (ctx) => {
+    //Evaluating scores for time questions
     var arr = [];
-    var score = [];
     for (var i = 0; i < tspec.length; i++) {
         //Filling temp array
         arr.push([]);
@@ -126,14 +132,14 @@ bot.command('scoreit', async (ctx) => {
         }
     }
     //Evaluating scores per each chat
+    var score = [];
     for (var i = 0; i < chats.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
         }
+        //console.log(qRs[i].chat, qRs[i].title, qRs[i].total);
         score.push({id: qRs[i].chat, title: qRs[i].title, t: qRs[i].total});
-        //console.log(qRs[i].chat, qRs[i].total);
-        //await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
     //console.log(qRs);
     await ctx.reply(qRs);
@@ -165,13 +171,14 @@ bot.on('text', async (ctx) => {
         let check1 = data.conds[stp].answer == txt;
         let check2 = data.conds[stp].tryouts == 0;
         let check3 = txt.substr(0, 1) == '?';
-        let check4 = (stp == 25 || stp == 27);
+        var stp25 = stp == 25;
+        var stp27 = stp == 27;
         if (check1 && check2) {
             //Вывод следующего задания
-            qRs[i].t1.push(Date.now());
-            qRs[i].t2.push(Date.now());
-            qRs[i].step++;
-            stp = qRs[i].step;
+            //qRs[i].t1.push(Date.now());
+            //qRs[i].t2.push(Date.now());
+            //qRs[i].step++;
+            stp = nextStep(qTs[i], true); //qRs[i].step;
 
             await sendMedia(c.id, data.images[stp]);
             await ctx.replyWithMarkdown(data.tasks[stp]);
@@ -192,10 +199,10 @@ bot.on('text', async (ctx) => {
             stp = qRs[i].step;
 
             await ctx.replyWithMarkdown(data.tasks[stp]);
-        } else if (check0 && check4) {
+        } else if (check0 && (stp25 || stp27))) {
             if (data.conds[stp].answer.includes(txt)) {
                 //Хардкод. Верный ответ на вопрос 25
-                if (stp == 25 && !qRs[i].a25.includes(txt)) {
+                if (stp25 && !qRs[i].a25.includes(txt)) {
                     qRs[i].a25.push(txt);
                     qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                     qRs[i].trys[stp]++;
@@ -215,7 +222,7 @@ bot.on('text', async (ctx) => {
                     }
                 }
                 //Хардкод. Верный ответ на вопрос 27
-                if (stp == 27 && !qRs[i].a27.includes(txt)) {
+                if (stp27 && !qRs[i].a27.includes(txt)) {
                     qRs[i].a27.push(txt);
                     qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                     qRs[i].trys[stp]++;
@@ -292,8 +299,9 @@ bot.on('photo', async (ctx) => {
     var m = ctx.message.message_id;
     var i = chats.indexOf(c.id);
     var stp = qRs[i].step;
+    var stp29 = stp == 29;
     //Хардкод. Вопрос 29 с получением фото от пользователей
-    if (stp == 29) {
+    if (stp29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
         if (qRs[i].pts[stp] >= 250) {
             //qRs[i].t1.push(Date.now());
