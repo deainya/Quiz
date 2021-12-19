@@ -173,7 +173,7 @@ bot.on('text', async (ctx) => {
         //check = (qRs[i].answer).test(txt);
         let chk0 = txt.substr(0, 1) == '!';
         //let chk1 = data.conds[stp].answer == txt;
-        let chk1 = data.conds[spt].answer.includes(txt);
+        let chk1 = data.conds[stp].answer.includes(txt);
         let chk2 = data.conds[stp].tryouts == 0;
         let chk3 = txt.substr(0, 1) == '?';
         var stp25 = stp == 21;
@@ -199,7 +199,7 @@ bot.on('text', async (ctx) => {
                 let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
                 await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + try1 + trs, {reply_to_message_id : m});
 
-                if (qRs[i].a[stp].length == data.conds[spt].answer.length && (stp < 6 || stp > 14)) {
+                if (qRs[i].a[stp].length == data.conds[stp].answer.length && (stp < 6 || stp > 14)) {
                     await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                     qRs[i].ok++;
 
