@@ -124,6 +124,9 @@ bot.command('scoreit', async (ctx) => {
             qRs[i].total = qRs[i].total + qRs[i].pts[j];
         }
         //console.log(qRs[i].chat, qRs[i].total);
+        await bot.telegram.getChat(qRs[i].chat)
+        .then(chat => console.log(chat))
+        .catch(err => console.error(err));
         await ctx.reply(qRs[i].chat.toString() + ': ' + qRs[i].total.toString());
     }
     //console.log(qRs);
