@@ -170,12 +170,13 @@ bot.on('text', async (ctx) => {
     var stp = qRs[i].step;
 
     if (stp < data.tasks.length-1) {
-        //check = (qRs[i].answer).test(txt);
-        let chk0 = txt.substr(0, 1) == '!';
+        //chk = (qRs[i].answer).test(txt);
         //let chk1 = data.conds[stp].answer == txt;
         let chk1 = data.conds[stp].answer.includes(txt);
         let chk2 = data.conds[stp].tryouts == 0;
-        let chk3 = txt.substr(0, 1) == '?';
+        let chk3 = txt.substr(0, 1) == '!';
+        let chk4 = txt.substr(0, 3) == '!31';
+        let chk5 = txt.substr(0, 1) == '?';
         var stp25 = stp == 21;
         var stp25 = stp == 25;
         var stp27 = stp == 27;
@@ -189,21 +190,26 @@ bot.on('text', async (ctx) => {
         } else if (chk1) {
             //Верный ответ
             if (!qRs[i].a[stp].includes(txt)) {
+                //Фиксируем ответ
                 qRs[i].a[stp].push(txt);
+                //Начисляем очки
                 if (stp25 || stp29) {
                     qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                 } else {
                     qRs[i].pts[stp] = data.conds[stp].points;
                 }
+                //Фиксируем попытки
                 qRs[i].trys[stp]++;
                 let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
                 await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 13)] + '*\n' + try1 + trs, {reply_to_message_id : m});
-
+                //Проверяем что получили все ответы
                 if (qRs[i].a[stp].length == data.conds[stp].answer.length) {
+                    //Выводим gif-ку
                     if (stp < 6 || stp > 14) {
                         await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                         qRs[i].ok++;
                     }
+                    //Переходим на следующий этап
                     stp = nextStep(qRs[i], true);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 }
@@ -270,7 +276,7 @@ bot.on('text', async (ctx) => {
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 }
             }
-        } /*else if (chk0 && !chk2) {
+        } else if (!chk2 && (chk3 && !stp21 || chk4 && stp21)) {
             //Неверный ответ
             qRs[i].trys[stp]++;
             let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
@@ -283,9 +289,9 @@ bot.on('text', async (ctx) => {
                 stp = nextStep(qRs[i], true);
                 await ctx.replyWithMarkdown(data.tasks[stp]);
             }
-        }*/ else {
+        } else {
             //Специальные вопросы
-            if (chk3 && stp21) {
+            if (chk5 && stp21) {
                 if (data.Qs21.includes(txt)) {
                     await ctx.replyWithMarkdown('*'+data.right[getRandom(0, 13)]+'*', {reply_to_message_id : m});
                 } else {
