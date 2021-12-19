@@ -149,10 +149,9 @@ bot.command('scoreit', async (ctx) => {
         str = str + qRs[i].title + ' (' + qRs[i].chat.toString() + ')\n'
               + 'try: ' + qRs[i].trys.toString() + '\n'
               + 'pts: ' + qRs[i].pts.toString() + '\n\n';
-        var time = '';
-        time = time + qRs[i].chat.toString() + '\n'
-              + 't1: ' + qRs[i].t1.toString() + '\n'
-              + 't2: ' + qRs[i].t2.toString() + '\n\n';
+        var time = qRs[i].chat.toString() + '\n' +
+          't1: ' + qRs[i].t1.toString() + '\n' +
+          't2: ' + qRs[i].t2.toString();
         //console.log(time);
         await ctx.reply(time);
     }
