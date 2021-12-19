@@ -259,7 +259,7 @@ bot.on('photo', async (ctx) => {
     //Хардкод. Вопрос 29 с получением фото от пользователей
     if (stp29) {
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
-        await ctx.replyWithMarkdown('*'+data.right[getRandom(6, 10)]+'*', {reply_to_message_id : m});
+        //await ctx.replyWithMarkdown('*'+data.right[getRandom(6, 10)]+'*', {reply_to_message_id : m});
         if (qRs[i].pts[stp] >= 250) {
             stp = nextStep(qRs[i], false);
             await ctx.replyWithMarkdown(data.tasks[stp]);
