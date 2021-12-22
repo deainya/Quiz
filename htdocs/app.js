@@ -167,10 +167,10 @@ bot.command('scoreit', async (ctx) => {
 })
 
 // Реакция на новых пользователей в группе
-bot.on('new_chat_members', (ctx) => {
+/*bot.on('new_chat_members', (ctx) => {
     console.log(ctx.message.new_chat_members);
     ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать в чат вашей команды!`);
-})
+})*/
 
 // Реакция на текстовые сообщения
 bot.on('text', async (ctx) => {
