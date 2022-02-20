@@ -130,7 +130,7 @@ bot.command('scoreit', async (ctx) => {
         }
         score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
         str = str + qRs[i].chat.toString() + '\n'
-                  + 'user: ' + qRs[i].user + '\n'
+                  + 'user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + '\n'
                   + 'try: ' + qRs[i].trys.toString() + '\n'
                   + 'pts: ' + qRs[i].pts.toString() + '\n\n';
     }
@@ -138,7 +138,7 @@ bot.command('scoreit', async (ctx) => {
     quickSort(score, 0, score.length - 1);
     var msg = '';
     for (var i = 0; i < score.length; i++) {
-        msg = msg + score[i].t.toString() + ' - ' + score[i].u + '\n';
+        msg = msg + score[i].t.toString() + ' - ' + score[i].u.username + ' ' + score[i].u.first_name + '\n';
     }
     await ctx.reply(msg);
 })
