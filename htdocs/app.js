@@ -145,7 +145,7 @@ bot.command('scoreit', async (ctx) => {
 bot.command('quizitknowit', (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
         if (qRs[i].step == globe + 1) {
-            bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "MarkdownV2" });
+            bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "Markdown" });
         }
         console.log(qRs[i]);
     }
