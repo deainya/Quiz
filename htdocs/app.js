@@ -16,6 +16,7 @@ const yc = config.yc;
 // Объявляем переменные
 var chats = [];
 var qRs = [];
+var globe = 1;
 
 // Переводит милисекунды в минуты
 function toMin(mSec) {
@@ -93,13 +94,28 @@ bot.start((ctx) => {
         pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         total: 0
     });
-    ctx.replyWithMarkdown(data.tasks[0]);
+    ctx.replyWithMarkdown(data.tasks[0] + "\n\nКак только будете готовы, введите фразу «поехали» БЕЗ ПРОБЕЛОВ и с восклицательным знаком вначале, вот так: *!поехали*");
 })
 bot.help((ctx) => {
     ctx.replyWithMarkdown(data.tasks[0]);
 })
 
 // Подсчёт результатов
+bot.command('score', (ctx) => {
+    var c = ctx.message.chat;
+    var i = chats.indexOf(c.id);
+
+    if (i == -1) {
+        ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
+    } else {
+        let total = 0;
+        for (var j = 0; j < qRs[i].pts.length; j++) {
+            //Change!!! Результаты: *
+            total = qRs[i].total + qRs[i].pts[j] + (1 - qRs[i].trys[j]) * 25;
+        }
+        ctx.reply(total);
+    }
+})
 bot.command('scoreit', async (ctx) => {
     //Evaluating scores per each chat & user
     var score = [];
@@ -107,26 +123,28 @@ bot.command('scoreit', async (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
-            //Change!!! Результаты: * qRs[i].trys[j]
-            qRs[i].total = qRs[i].total + qRs[i].pts[j];
+            qRs[i].total = qRs[i].total + qRs[i].pts[j] + (1 - qRs[i].trys[j]) * 25;
         }
-        score.push({
-            id: qRs[i].chat,
-            u: qRs[i].user,
-            t: qRs[i].total});
+        score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
         str = str + qRs[i].chat.toString() + '\n'
                   + 'user: ' + qRs[i].user.toString() + '\n'
                   + 'try: ' + qRs[i].trys.toString() + '\n'
                   + 'pts: ' + qRs[i].pts.toString() + '\n\n';
     }
     await ctx.reply(str);
-    var msg = '';
     quickSort(score, 0, score.length - 1);
+
+    var msg = '';
     for (var i = 0; i < score.length; i++) {
-        msg = msg + score[i].t.toString() + ' - ' +
-                    score[i].u.toString() + ' (' + score[i].id.toString() + ')\n';
+        msg = msg + score[i].t.toString() + ' - ' + score[i].u.toString() + '\n';
     }
     await ctx.reply(msg);
+})
+bot.command('quizitknowit', (ctx) => {
+    if (globe >= 15) {globe++; globe++; globe++;}
+    else if (globe >= 10) {globe++; globe++;}
+    else {globe++;}
+    ctx.reply('Номер доступного сейчас шага ' + globe.toString());
 })
 
 // Реакция на новых пользователей в группе
@@ -146,65 +164,65 @@ bot.on('text', async (ctx) => {
         ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
     } else {
         var stp = qRs[i].step;
-
-        if (stp < data.tasks.length-1) {
-            //chk = (qRs[i].answer).test(txt);
-            let chk1 = data.conds[stp].answer.includes(txt);
-            let chk2 = data.conds[stp].tryouts == 0;
-            let chk3 = txt.substr(0, 1) == '!';
-            var stp19 = stp == 19;
-            if (chk1 && chk2) {
-                //Вывод следующего задания
-                if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
-                await ctx.replyWithMarkdown(data.tasks[stp]);
-            } else if (chk1) {
-                //Верный ответ
-                if (!qRs[i].a[stp].includes(txt)) {
-                    //Фиксируем ответ
-                    qRs[i].a[stp].push(txt);
-                    //Начисляем очки
-                    qRs[i].pts[stp] = data.conds[stp].points;
-                    //Фиксируем попытки
-                    qRs[i].trys[stp]++;
-                    let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
-                    await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 11)] + '*\n' + try1 + trs, {reply_to_message_id : m});
-                    //Проверяем что получили все ответы
-                    if (qRs[i].a[stp].length == data.conds[stp].answer.length) {
-                        //Выводим gif-ку
-                        await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
-                        qRs[i].ok++;
-                        stp = nextStep(qRs[i], true);
-                        //Change!!! Новое задание
-                        await ctx.replyWithMarkdown(data.tasks[stp]);
-                    }
-                } else {
-                    if (qRs[i].a[stp].includes(txt)) { await ctx.replyWithMarkdown(try3, {reply_to_message_id : m}); }
-                    else {
-                        //Неверный ответ
+        if (stp <= globe) {
+            if (stp < data.tasks.length-1) {
+                //chk = (qRs[i].answer).test(txt);
+                let chk1 = data.conds[stp].answer.includes(txt);
+                let chk2 = data.conds[stp].tryouts == 0;
+                let chk3 = txt.substr(0, 1) == '!';
+                var stp19 = stp == 19;
+                if (chk1 && chk2) {
+                    //Вывод следующего задания
+                    if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
+                    await ctx.replyWithMarkdown(data.tasks[stp]);
+                } else if (chk1) {
+                    //Верный ответ
+                    if (!qRs[i].a[stp].includes(txt)) {
+                        //Фиксируем ответ
+                        qRs[i].a[stp].push(txt);
+                        //Начисляем очки
+                        qRs[i].pts[stp] = data.conds[stp].points;
+                        //Фиксируем попытки
                         qRs[i].trys[stp]++;
                         let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
-                        //Исчерпали все попытки
-                        if (trs > 0) { await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try1 + trs, {reply_to_message_id : m}); }
-                        else {
-                            await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try2, {reply_to_message_id : m});
+                        await ctx.replyWithMarkdown('*' + data.right[getRandom(0, 11)] + '*\n' + try1 + trs, {reply_to_message_id : m});
+                        //Проверяем что получили все ответы
+                        if (qRs[i].a[stp].length == data.conds[stp].answer.length) {
+                            //Выводим gif-ку
+                            await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
+                            qRs[i].ok++;
                             stp = nextStep(qRs[i], true);
+                            //Change!!! Новое задание
                             await ctx.replyWithMarkdown(data.tasks[stp]);
                         }
+                    } else {
+                        if (qRs[i].a[stp].includes(txt)) { await ctx.replyWithMarkdown(try3, {reply_to_message_id : m}); }
+                        else {
+                            //Неверный ответ
+                            qRs[i].trys[stp]++;
+                            let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
+                            //Исчерпали все попытки
+                            if (trs > 0) { await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try1 + trs, {reply_to_message_id : m}); }
+                            else {
+                                await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try2, {reply_to_message_id : m});
+                                stp = nextStep(qRs[i], true);
+                                await ctx.replyWithMarkdown(data.tasks[stp]);
+                            }
+                        }
+                    }
+                } else if (!chk2 && chk3) {
+                    //Неверный ответ
+                    qRs[i].trys[stp]++;
+                    let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
+                    //Исчерпали все попытки
+                    if (trs > 0) { await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try1 + trs, {reply_to_message_id : m}); }
+                    else {
+                        await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
+                        stp = nextStep(qRs[i], true);
+                        await ctx.replyWithMarkdown(data.tasks[stp]);
                     }
                 }
-            } else if (!chk2 && chk3) {
-                //Неверный ответ
-                qRs[i].trys[stp]++;
-                let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
-                //Исчерпали все попытки
-                if (trs > 0) { await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try1 + trs, {reply_to_message_id : m}); }
-                else {
-                    await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
-                    stp = nextStep(qRs[i], true);
-                    await ctx.replyWithMarkdown(data.tasks[stp]);
-                }
             }
-
         }
 
     }
