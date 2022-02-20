@@ -114,6 +114,8 @@ bot.command('score', (ctx) => {
             total = qRs[i].total + qRs[i].pts[j] + (1 - qRs[i].trys[j]) * 25;
         }
         ctx.reply(total);
+        console.log(qRs);
+        console.log(total);
     }
 })
 bot.command('scoreit', async (ctx) => {
@@ -133,7 +135,8 @@ bot.command('scoreit', async (ctx) => {
     }
     await ctx.reply(str);
     quickSort(score, 0, score.length - 1);
-
+    console.log(score);
+    console.log(qRs);
     var msg = '';
     for (var i = 0; i < score.length; i++) {
         msg = msg + score[i].t.toString() + ' - ' + score[i].u.toString() + '\n';
