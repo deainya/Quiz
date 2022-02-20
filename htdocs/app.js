@@ -149,8 +149,8 @@ bot.command('quizitknowit', (ctx) => {
         }
         console.log(qRs[i]);
     }
-    if (globe >= 15) {globe++; globe++; globe++;}
-    else if (globe >= 10) {globe++; globe++;}
+    if (globe == 11 || globe == 16) {globe++; globe++; globe++;}
+    else if (globe == 14) {globe++; globe++;}
     else {globe++;}
     ctx.reply('Номер доступного сейчас шага ' + globe.toString());
 })
