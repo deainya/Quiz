@@ -88,13 +88,12 @@ bot.start((ctx) => {
     console.log(ctx.message.from);
     qRs.push({
         chat: c.id, user: ctx.message.from,
-        step: stp, ok: 0, t1: [], t2: [],
+        step: stp, ok: 0, t1: [Date.now()], t2: [],
         a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[]],
         trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0],
         pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0],
         total: 0
     });
-    qRs[i].t1.push(Date.now());
     //await ctx.reply(`Привет, ${ctx.message.from.first_name}.\n`);
     ctx.replyWithMarkdown(data.tasks[0]);
 })
