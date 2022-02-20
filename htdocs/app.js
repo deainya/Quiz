@@ -85,16 +85,14 @@ bot.start((ctx) => {
     var stp = 0;
     console.log(c);
     chats.push(c.id);
-    console.log(ctx.message.from);
     qRs.push({
-        chat: c.id, user: ctx.message.from,
+        chat: c.id, user: c,
         step: stp, ok: 0, t1: [Date.now()], t2: [],
-        a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[]],
-        trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0],
-        pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0],
+        a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
+        trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         total: 0
     });
-    //await ctx.reply(`Привет, ${ctx.message.from.first_name}.\n`);
     ctx.replyWithMarkdown(data.tasks[0]);
 })
 bot.help((ctx) => {
@@ -194,7 +192,19 @@ bot.on('text', async (ctx) => {
                         }
                     }
                 }
+            } else if (!chk2 && chk3) {
+                //Неверный ответ
+                qRs[i].trys[stp]++;
+                let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
+                //Исчерпали все попытки
+                if (trs > 0) { await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try1 + trs, {reply_to_message_id : m}); }
+                else {
+                    await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
+                    stp = nextStep(qRs[i], true);
+                    await ctx.replyWithMarkdown(data.tasks[stp]);
+                }
             }
+
         }
 
     }
