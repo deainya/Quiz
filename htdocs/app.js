@@ -110,12 +110,11 @@ bot.command('score', (ctx) => {
     } else {
         let total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
-            //Change!!! Результаты: *
-            total = qRs[i].total + qRs[i].pts[j] + (1 - qRs[i].trys[j]) * 25;
+            if (qRs[i].trys[j] == 1) {total = total + qRs[i].pts[j];}
+            else if (qRs[i].trys[j] == 2) {total = total + qRs[i].pts[j] - 25;}
+            else if (qRs[i].trys[j] == 3) {total = total + qRs[i].pts[j] - 50;}
         }
         ctx.reply(total);
-        console.log(qRs);
-        console.log(total);
     }
 })
 bot.command('scoreit', async (ctx) => {
@@ -125,21 +124,21 @@ bot.command('scoreit', async (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
-            qRs[i].total = qRs[i].total + qRs[i].pts[j] + (1 - qRs[i].trys[j]) * 25;
+            if (qRs[i].trys[j] == 1) {qRs[i].total = qRs[i].total + qRs[i].pts[j];}
+            else if (qRs[i].trys[j] == 2) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 25;}
+            else if (qRs[i].trys[j] == 3) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 50;}
         }
         score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
         str = str + qRs[i].chat.toString() + '\n'
-                  + 'user: ' + qRs[i].user.toString() + '\n'
+                  + 'user: ' + qRs[i].user + '\n'
                   + 'try: ' + qRs[i].trys.toString() + '\n'
                   + 'pts: ' + qRs[i].pts.toString() + '\n\n';
     }
     await ctx.reply(str);
     quickSort(score, 0, score.length - 1);
-    console.log(score);
-    console.log(qRs);
     var msg = '';
     for (var i = 0; i < score.length; i++) {
-        msg = msg + score[i].t.toString() + ' - ' + score[i].u.toString() + '\n';
+        msg = msg + score[i].t.toString() + ' - ' + score[i].u + '\n';
     }
     await ctx.reply(msg);
 })
@@ -151,10 +150,10 @@ bot.command('quizitknowit', (ctx) => {
 })
 
 // Реакция на новых пользователей в группе
-bot.on('new_chat_members', (ctx) => {
-    console.log(ctx.message.new_chat_members);
-    ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
-})
+//bot.on('new_chat_members', (ctx) => {
+//    console.log(ctx.message.new_chat_members);
+//    ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
+//})
 
 // Реакция на текстовые сообщения
 bot.on('text', async (ctx) => {
