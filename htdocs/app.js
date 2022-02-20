@@ -1,6 +1,6 @@
 // Подключаем библиотеки и внешние скрипты
 const config = require('./config');
-const data = require('./data');
+const data = require('./data_238');
 const try1 = data.left_try;
 const try2 = data.last_try;
 const try3 = data.done_try;
