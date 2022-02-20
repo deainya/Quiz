@@ -16,7 +16,6 @@ const yc = config.yc;
 // Объявляем переменные
 var chats = [];
 var qRs = [];
-//var aspec = [25, 27];
 
 // Переводит милисекунды в минуты
 function toMin(mSec) {
@@ -80,12 +79,6 @@ async function sendMedia(chat_id, arr) {
     }
 }
 
-// Реакция на новых пользователей в группе
-bot.on('new_chat_members', (ctx) => {
-    console.log(ctx.message.new_chat_members);
-    ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\\start*`);
-})
-
 // Реакция на must have команды
 bot.start((ctx) => {
     var c = ctx.message.chat;
@@ -94,7 +87,7 @@ bot.start((ctx) => {
     chats.push(c.id);
     console.log(ctx.message.from);
     qRs.push({
-        chat: c.id, username: c.username, first_name: c.first_name, last_name: c.last_name,
+        chat: c.id, user: ctx.message.from,
         step: stp, ok: 0, t1: [], t2: [],
         a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[]],
         trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0],
@@ -103,10 +96,10 @@ bot.start((ctx) => {
     });
     qRs[i].t1.push(Date.now());
     //await ctx.reply(`Привет, ${ctx.message.from.first_name}.\n`);
-    ctx.reply(data.tasks[0]);
+    ctx.replyWithMarkdown(data.tasks[0]);
 })
 bot.help((ctx) => {
-    ctx.reply(data.tasks[0]);
+    ctx.replyWithMarkdown(data.tasks[0]);
 })
 
 // Подсчёт результатов
@@ -122,9 +115,10 @@ bot.command('scoreit', async (ctx) => {
         }
         score.push({
             id: qRs[i].chat,
-            u: qRs[i].username + ' ' + qRs[i].first_name + ' ' + qRs[i].last_name,
+            u: qRs[i].user,
             t: qRs[i].total});
         str = str + qRs[i].chat.toString() + '\n'
+                  + 'user: ' + qRs[i].user.toString() + '\n'
                   + 'try: ' + qRs[i].trys.toString() + '\n'
                   + 'pts: ' + qRs[i].pts.toString() + '\n\n';
     }
@@ -133,9 +127,15 @@ bot.command('scoreit', async (ctx) => {
     quickSort(score, 0, score.length - 1);
     for (var i = 0; i < score.length; i++) {
         msg = msg + score[i].t.toString() + ' - ' +
-                    score[i].u + ' (' + score[i].id.toString() + ')\n';
+                    score[i].u.toString() + ' (' + score[i].id.toString() + ')\n';
     }
     await ctx.reply(msg);
+})
+
+// Реакция на новых пользователей в группе
+bot.on('new_chat_members', (ctx) => {
+    console.log(ctx.message.new_chat_members);
+    ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
 })
 
 // Реакция на текстовые сообщения
@@ -146,7 +146,7 @@ bot.on('text', async (ctx) => {
     var i = chats.indexOf(c.id);
 
     if (i == -1) {
-        ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\\start*`);
+        ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
     } else {
         var stp = qRs[i].step;
 
