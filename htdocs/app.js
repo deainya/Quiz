@@ -147,6 +147,7 @@ bot.command('quizitknowit', (ctx) => {
         if (qRs[i].stp == globe+1) {
             bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].stp], { parse_mode: "MarkdownV2" });
         }
+        console.log(qRs[i]);
     }
     if (globe >= 15) {globe++; globe++; globe++;}
     else if (globe >= 10) {globe++; globe++;}
