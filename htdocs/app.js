@@ -122,8 +122,8 @@ bot.command('score', (ctx) => {
 bot.command('scoreit', async (ctx) => {
     //Evaluating scores per each chat & user
     var score = [];
-    var str = '';
     for (var i = 0; i < qRs.length; i++) {
+        var str = '';
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             if (qRs[i].pts[j] > 0) {
@@ -133,12 +133,13 @@ bot.command('scoreit', async (ctx) => {
             }
         }
         score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
-        str = str + qRs[i].chat.toString() + '\n'
-                  + 'user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + '\n'
-                  + 'try: ' + qRs[i].trys.toString() + '\n'
-                  + 'pts: ' + qRs[i].pts.toString() + '\n\n';
+        str = qRs[i].chat.toString() + ' '
+            + 'try: ' + qRs[i].trys.toString() + '\n'
+            + 'pts: ' + qRs[i].pts.toString() + '\n\n';
+        await ctx.reply(str);
+        str = qRs[i].chat.toString() + ' user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + '\n'
+        await ctx.reply(str);
     }
-    await ctx.reply(str);
     quickSort(score, 0, score.length - 1);
     var msg = '';
     for (var i = 0; i < score.length; i++) {
@@ -151,7 +152,7 @@ bot.command('quizitknowit', (ctx) => {
         if (qRs[i].step == globe + 1) {
             bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "Markdown" });
         }
-        console.log(qRs[i]);
+        //console.log(qRs[i]);
     }
     if (globe == 11 || globe == 16) {globe++; globe++; globe++;}
     else if (globe == 14) {globe++; globe++;}
