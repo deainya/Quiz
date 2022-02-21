@@ -110,9 +110,11 @@ bot.command('score', (ctx) => {
     } else {
         let total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
-            if (qRs[i].trys[j] == 1) {total = total + qRs[i].pts[j];}
-            else if (qRs[i].trys[j] == 2) {total = total + qRs[i].pts[j] - 25;}
-            else if (qRs[i].trys[j] == 3) {total = total + qRs[i].pts[j] - 50;}
+            if (qRs[i].pts[j] > 0) {
+                if (qRs[i].trys[j] == 1) {total = total + qRs[i].pts[j];}
+                else if (qRs[i].trys[j] == 2) {total = total + qRs[i].pts[j] - 25;}
+                else if (qRs[i].trys[j] == 3) {total = total + qRs[i].pts[j] - 50;}
+            }
         }
         ctx.reply(total);
     }
@@ -124,9 +126,11 @@ bot.command('scoreit', async (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
         qRs[i].total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
-            if (qRs[i].trys[j] == 1) {qRs[i].total = qRs[i].total + qRs[i].pts[j];}
-            else if (qRs[i].trys[j] == 2) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 25;}
-            else if (qRs[i].trys[j] == 3) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 50;}
+            if (qRs[i].pts[j] > 0) {
+                if (qRs[i].trys[j] == 1) {qRs[i].total = qRs[i].total + qRs[i].pts[j];}
+                else if (qRs[i].trys[j] == 2) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 25;}
+                else if (qRs[i].trys[j] == 3) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 50;}
+            }
         }
         score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
         str = str + qRs[i].chat.toString() + '\n'
