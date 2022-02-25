@@ -156,6 +156,7 @@ bot.command('scoreit', async (ctx) => {
             msg = '';
         }
     }
+    await ctx.reply(msg);
 })
 bot.command('quizitknowit', (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
