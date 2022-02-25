@@ -171,6 +171,7 @@ bot.command('initit', (ctx) => {
             pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             total: 0
         });
+    }
     ctx.reply('Инициализировали...');
 })
 bot.command('deinitit', (ctx) => {
