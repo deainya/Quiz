@@ -121,6 +121,7 @@ bot.command('score', (ctx) => {
 })
 bot.command('scoreit', async (ctx) => {
     //Evaluating scores per each chat & user
+    console.log(qRs);
     var score = [];
     for (var i = 0; i < qRs.length; i++) {
         var str = '';
@@ -133,17 +134,18 @@ bot.command('scoreit', async (ctx) => {
             }
         }
         score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
-        str = qRs[i].chat.toString() + ' '
+        str = qRs[i].chat.toString() + '\n'
+            + 'user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + ' ' + qRs[i].user.second_name + '\n'
             + 'try: ' + qRs[i].trys.toString() + '\n'
-            + 'pts: ' + qRs[i].pts.toString() + '\n\n';
-        await ctx.reply(str);
-        str = qRs[i].chat.toString() + ' user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + '\n'
+            + 'pts: ' + qRs[i].pts.toString() + '\n';
+        if (i%25 == 0) {setTimeout(5000);}
         await ctx.reply(str);
     }
     quickSort(score, 0, score.length - 1);
+    console.log(score);
     var msg = '';
     for (var i = 0; i < score.length; i++) {
-        msg = msg + score[i].t.toString() + ' - ' + score[i].u.username + ' ' + score[i].u.first_name + '\n';
+        msg = msg + score[i].t.toString() + ' - ' + score[i].u.username + ' ' + score[i].u.first_name + ' ' + score[i].u.second_name + '\n';
     }
     await ctx.reply(msg);
 })
@@ -158,6 +160,22 @@ bot.command('quizitknowit', (ctx) => {
     else if (globe == 14) {globe++; globe++;}
     else {globe++;}
     ctx.reply('Номер доступного сейчас шага ' + globe.toString());
+})
+bot.command('initit', (ctx) => {
+    for (var i = 0; i < 200; i++) {
+        qRs.push({
+            chat: i, 'User_'+i.toString(): c,
+            step: 0, ok: 0, t1: [Date.now()], t2: [],
+            a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
+            trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            total: 0
+        });
+    ctx.reply('Инициализировали...');
+})
+bot.command('deinitit', (ctx) => {
+    var qRs = [];
+    ctx.reply('Отмена инициализировали...');
 })
 
 // Реакция на новых пользователей в группе
