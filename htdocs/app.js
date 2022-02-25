@@ -170,7 +170,7 @@ bot.command('quizitknowit', (ctx) => {
     else {globe++;}
     ctx.reply('Номер доступного сейчас шага ' + globe.toString());
 })
-bot.command('initit', (ctx) => {
+/*bot.command('initit', (ctx) => {
     for (var i = 0; i < 200; i++) {
         qRs.push({
             chat: i, user: {username: 'User_'+i.toString()},
@@ -186,7 +186,7 @@ bot.command('initit', (ctx) => {
 bot.command('deinitit', (ctx) => {
     var qRs = [];
     ctx.reply('Отмена инициализировали...');
-})
+})*/
 
 // Реакция на новых пользователей в группе
 //bot.on('new_chat_members', (ctx) => {
