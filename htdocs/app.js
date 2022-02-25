@@ -18,6 +18,11 @@ var chats = [];
 var qRs = [];
 var globe = 1;
 
+//Timer
+function myFunc(arg) {
+  console.log(`arg was => ${arg}`);
+}
+
 // Переводит милисекунды в минуты
 function toMin(mSec) {
     return Math.round(mSec/60000);
@@ -138,7 +143,7 @@ bot.command('scoreit', async (ctx) => {
             + 'user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + ' ' + qRs[i].user.second_name + '\n'
             + 'try: ' + qRs[i].trys.toString() + '\n'
             + 'pts: ' + qRs[i].pts.toString() + '\n';
-        if (i%25 == 0) {setTimeout(5000);}
+        if (i%25 == 0) {setTimeout(myFunc, 5000, 'funky');}
         await ctx.reply(str);
     }
     quickSort(score, 0, score.length - 1);
