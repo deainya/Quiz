@@ -164,7 +164,7 @@ bot.command('quizitknowit', (ctx) => {
 bot.command('initit', (ctx) => {
     for (var i = 0; i < 200; i++) {
         qRs.push({
-            chat: i, 'User_'+i.toString(): c,
+            chat: i, user: {username: 'User_'+i.toString()},
             step: 0, ok: 0, t1: [Date.now()], t2: [],
             a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
             trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
