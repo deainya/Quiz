@@ -143,7 +143,7 @@ bot.command('scoreit', async (ctx) => {
             + 'user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + ' ' + qRs[i].user.second_name + '\n'
             + 'try: ' + qRs[i].trys.toString() + '\n'
             + 'pts: ' + qRs[i].pts.toString() + '\n';
-        if (i%25 == 0) {setTimeout(myFunc, 5000, 'funky');}
+        if (i%25 == 0) {await setTimeout(myFunc, 5000, 'funky');}
         await ctx.reply(str);
     }
     quickSort(score, 0, score.length - 1);
@@ -151,8 +151,11 @@ bot.command('scoreit', async (ctx) => {
     var msg = '';
     for (var i = 0; i < score.length; i++) {
         msg = msg + score[i].t.toString() + ' - ' + score[i].u.username + ' ' + score[i].u.first_name + ' ' + score[i].u.second_name + '\n';
+        if (i%25 == 0) {
+            await ctx.reply(msg);
+            msg = '';
+        }
     }
-    await ctx.reply(msg);
 })
 bot.command('quizitknowit', (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
