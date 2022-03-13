@@ -170,29 +170,6 @@ bot.command('quizitknowit', (ctx) => {
     else {globe++;}
     ctx.reply('Номер доступного сейчас шага ' + globe.toString());
 })
-/*bot.command('initit', (ctx) => {
-    for (var i = 0; i < 200; i++) {
-        qRs.push({
-            chat: i, user: {username: 'User_'+i.toString()},
-            step: 0, ok: 0, t1: [Date.now()], t2: [],
-            a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
-            trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            total: 0
-        });
-    }
-    ctx.reply('Инициализировали...');
-})
-bot.command('deinitit', (ctx) => {
-    var qRs = [];
-    ctx.reply('Отмена инициализировали...');
-})*/
-
-// Реакция на новых пользователей в группе
-//bot.on('new_chat_members', (ctx) => {
-//    console.log(ctx.message.new_chat_members);
-//    ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
-//})
 
 // Реакция на текстовые сообщения
 bot.on('text', async (ctx) => {
