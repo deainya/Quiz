@@ -87,7 +87,7 @@ async function sendMedia(chat_id, arr) {
 
 // Реакция на must have команды
 bot.start((ctx) => {
-    var c = ctx.message.chat;
+    /*var c = ctx.message.chat;
     var stp = 0;
     console.log(c);
     chats.push(c.id);
@@ -99,14 +99,20 @@ bot.start((ctx) => {
         pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         total: 0
     });
-    ctx.replyWithMarkdown(data.tasks[0] + "\n\nКак только будете готовы, введите фразу «поехали» БЕЗ ПРОБЕЛОВ и с восклицательным знаком вначале, вот так: *!поехали*");
+    ctx.replyWithMarkdown(data.tasks[0] + "\n\nКак только будете готовы, введите фразу «поехали» БЕЗ ПРОБЕЛОВ и с восклицательным знаком вначале, вот так: *!поехали*");*/
+    ctx.replyWithMarkdown('Приветик!');
 })
 bot.help((ctx) => {
-    ctx.replyWithMarkdown(data.tasks[0]);
+    //ctx.replyWithMarkdown(data.tasks[0]);
+    ctx.replyWithMarkdown('А вот и помощь!');
+})
+bot.command('messageit', (ctx) => {
+    bot.telegram.sendMessage(5291523486, 'Отличная работа! Ты играл как боженька! Красивая игра и второе место в общем рейтинге из 94 участников. Напиши, пожалуйста, Асе Губайдуллиной в Teams (или @deainya в Telegram), чтобы забрать свой подарок!', { parse_mode: "Markdown" });
+    ctx.reply('Сообщение отправлено Retrum');
 })
 
 // Подсчёт результатов
-bot.command('score', (ctx) => {
+/*bot.command('score', (ctx) => {
     var c = ctx.message.chat;
     var i = chats.indexOf(c.id);
 
@@ -169,10 +175,10 @@ bot.command('quizitknowit', (ctx) => {
     else if (globe == 14) {globe++; globe++;}
     else {globe++;}
     ctx.reply('Номер доступного сейчас шага ' + globe.toString());
-})
+})*/
 
 // Реакция на текстовые сообщения
-bot.on('text', async (ctx) => {
+/*bot.on('text', async (ctx) => {
     var c = ctx.message.chat;
     var m = ctx.message.message_id;
     var txt = ctx.message.text.toLowerCase();
@@ -244,7 +250,7 @@ bot.on('text', async (ctx) => {
 
     }
 
-})
+})*/
 
 // Ловим ошибки приложеньки
 bot.catch((err) => {
