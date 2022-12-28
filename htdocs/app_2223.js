@@ -164,7 +164,7 @@ bot.command('scoreit', async (ctx) => {
     }
     await ctx.reply(msg);
 })
-bot.command('quizitit', async (ctx) => {
+bot.command('quizit', async (ctx) => {
   var c = ctx.message.chat;
   console.log(c);
   var stp = 0;
@@ -184,7 +184,7 @@ bot.command('quizitit', async (ctx) => {
           total: 0
       });
       await sendMedia(chats[i], data.images[stp]);
-      await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "MarkdownV2" });
+      await bot.telegram.sendMessage(chats[i], data.tasks[stp]/*, { parse_mode: "MarkdownV2" }*/);
   }
   ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
