@@ -82,7 +82,6 @@ async function sendMedia(chat_id, arr) {
         } else if (arr[i].type == 'document') {
             await bot.telegram.sendDocument(chat_id, yc + arr[i].name, [{disable_notification: true}]);
         }
-        console.log(chat_id, yc + arr[i].name);
     }
 }
 
@@ -194,8 +193,8 @@ bot.on('text', async (ctx) => {
                     //Вывод следующего задания
                     //if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
                     stp = nextStep(qRs[i], true);
-                    await sendMedia(c.id, data.images[stp]);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
+                    await sendMedia(c.id, data.images[stp]);
                 } else if (chk1) {
                     //Верный ответ
                     if (!qRs[i].a[stp].includes(txt)) {
@@ -213,8 +212,8 @@ bot.on('text', async (ctx) => {
                             await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                             qRs[i].ok++;
                             stp = nextStep(qRs[i], true);
-                            await sendMedia(c.id, data.images[stp]);
                             await ctx.replyWithMarkdown(data.tasks[stp]);
+                            await sendMedia(c.id, data.images[stp]);
                         }
                     } else {
                         if (qRs[i].a[stp].includes(txt)) { await ctx.replyWithMarkdown(try3, {reply_to_message_id : m}); }
@@ -227,8 +226,8 @@ bot.on('text', async (ctx) => {
                             else {
                                 await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try2, {reply_to_message_id : m});
                                 stp = nextStep(qRs[i], true);
-                                await sendMedia(c.id, data.images[stp]);
                                 await ctx.replyWithMarkdown(data.tasks[stp]);
+                                await sendMedia(c.id, data.images[stp]);
                             }
                         }
                     }
@@ -241,8 +240,8 @@ bot.on('text', async (ctx) => {
                     else {
                         await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
                         stp = nextStep(qRs[i], true);
-                        await sendMedia(c.id, data.images[stp]);
                         await ctx.replyWithMarkdown(data.tasks[stp]);
+                        await sendMedia(c.id, data.images[stp]);
                     }
                 }
             }
