@@ -10,7 +10,7 @@ module.exports = {
       [], //4
       [{type: 'photo', name: 'Рисунок4.png'}], //5
       [], //6
-      [{type: 'photo', name: 'Рисунок5.png'}, //{type: 'photo', name: 'Рисунок7.png'}], //7
+      [{type: 'photo', name: 'Рисунок5.png'}], //{type: 'photo', name: 'Рисунок7.png'}], //7
       [{type: 'photo', name: 'Рисунок8.png'}], //8
       [{type: 'photo', name: 'Рисунок9.png'}], //9
       [{type: 'photo', name: 'Рисунок10.png'}], //10
