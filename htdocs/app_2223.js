@@ -87,7 +87,7 @@ async function sendMedia(chat_id, arr) {
 
 // Реакция на must have команды
 bot.start((ctx) => {
-    var c = ctx.message.chat;
+    /* var c = ctx.message.chat;
     var stp = 0;
     console.log(c);
     chats.push(c.id);
@@ -99,8 +99,8 @@ bot.start((ctx) => {
         pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         total: 0
     });
-    ctx.replyWithMarkdown(data.tasks[0]); // + "\n\nКак только будете готовы, введите фразу «поехали» БЕЗ ПРОБЕЛОВ и с восклицательным знаком вначале, вот так: *!поехали*");
-    //ctx.replyWithMarkdown('Приветик!');
+    ctx.replyWithMarkdown(data.tasks[0] + "\n\nКак только будете готовы, введите фразу «поехали» БЕЗ ПРОБЕЛОВ и с восклицательным знаком вначале, вот так: *!поехали*");*/
+    ctx.replyWithMarkdown('Приветик!');
 })
 bot.help((ctx) => {
     //ctx.replyWithMarkdown(data.tasks[0]);
@@ -163,6 +163,30 @@ bot.command('scoreit', async (ctx) => {
         }
     }
     await ctx.reply(msg);
+})
+bot.command('quizitit', (ctx) => {
+  var c = ctx.message.chat;
+  console.log(c);
+  var stp = 0;
+  qRs = [];
+
+  for (var i = 0; i < chats.length; i++) {
+      await bot.telegram.getChat(chats[i])
+      .then(chat => chat_title = chat.title)
+      .catch(err => console.error(err));
+
+      qRs.push({
+          chat: chats[i],
+          step: stp, ok: 0, t1: [Date.now()], t2: [],
+          a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
+          trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          total: 0
+      });
+      await sendMedia(chats[i], data.images[stp]);
+      await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "MarkdownV2" });
+  }
+  ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
 bot.command('quizitknowit', (ctx) => {
     for (var i = 0; i < qRs.length; i++) {
