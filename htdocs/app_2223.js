@@ -87,19 +87,6 @@ async function sendMedia(chat_id, arr) {
 
 // Реакция на must have команды
 bot.start((ctx) => {
-    /* var c = ctx.message.chat;
-    var stp = 0;
-    console.log(c);
-    chats.push(c.id);
-    qRs.push({
-        chat: c.id, user: c,
-        step: stp, ok: 0, t1: [Date.now()], t2: [],
-        a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
-        trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        total: 0
-    });
-    ctx.replyWithMarkdown(data.tasks[0] + "\n\nКак только будете готовы, введите фразу «поехали» БЕЗ ПРОБЕЛОВ и с восклицательным знаком вначале, вот так: *!поехали*");*/
     ctx.replyWithMarkdown('Приветик!');
 })
 bot.help((ctx) => {
@@ -222,6 +209,7 @@ bot.on('text', async (ctx) => {
                 if (chk1 && chk2) {
                     //Вывод следующего задания
                     //if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
+                    stp = nextStep(qRs[i], true);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 } else if (chk1) {
                     //Верный ответ
