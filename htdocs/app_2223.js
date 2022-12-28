@@ -199,7 +199,6 @@ bot.on('text', async (ctx) => {
         ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
     } else {
         var stp = qRs[i].step;
-        if (stp <= globe) {
             if (stp < data.tasks.length-1) {
                 //chk = (qRs[i].answer).test(txt);
                 let chk1 = data.conds[stp].answer.includes(txt);
@@ -228,9 +227,7 @@ bot.on('text', async (ctx) => {
                             await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                             qRs[i].ok++;
                             stp = nextStep(qRs[i], true);
-                            //globe++;
-                            //if (stp <= globe) {}
-                            //await ctx.replyWithMarkdown(data.tasks[stp]);
+                            await ctx.replyWithMarkdown(data.tasks[stp]);
                         }
                     } else {
                         if (qRs[i].a[stp].includes(txt)) { await ctx.replyWithMarkdown(try3, {reply_to_message_id : m}); }
@@ -243,9 +240,7 @@ bot.on('text', async (ctx) => {
                             else {
                                 await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try2, {reply_to_message_id : m});
                                 stp = nextStep(qRs[i], true);
-                                //globe++;
-                                //if (stp <= globe) {}
-                                //await ctx.replyWithMarkdown(data.tasks[stp]);
+                                await ctx.replyWithMarkdown(data.tasks[stp]);
                             }
                         }
                     }
@@ -258,13 +253,11 @@ bot.on('text', async (ctx) => {
                     else {
                         await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
                         stp = nextStep(qRs[i], true);
-                        //globe++;
-                        //if (stp <= globe) {}
-                        //await ctx.replyWithMarkdown(data.tasks[stp]);
+                        await ctx.replyWithMarkdown(data.tasks[stp]);
                     }
                 }
             }
-        }
+
 
     }
 
