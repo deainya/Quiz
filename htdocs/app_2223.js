@@ -129,7 +129,7 @@ bot.command('scoreit', async (ctx) => {
         }
         score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
         str = qRs[i].chat.toString() + '\n'
-            + 'user: ' + qRs[i].user.username + ' ' + qRs[i].user.first_name + ' ' + qRs[i].user.second_name + '\n'
+            + 'user: ' + qRs[i].user + '\n'
             + 'try: ' + qRs[i].trys.toString() + '\n'
             + 'pts: ' + qRs[i].pts.toString() + '\n';
         if (i%25 == 0) {await setTimeout(myFunc, 5000, 'funky');}
