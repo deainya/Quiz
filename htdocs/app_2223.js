@@ -171,7 +171,7 @@ bot.command('quizit', async (ctx) => {
           total: 0
       });
       await sendMedia(chats[i], data.images[stp]);
-      await bot.telegram.sendMessage(chats[i], data.tasks[stp]/*, { parse_mode: "MarkdownV2" }*/);
+      await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "Markdown" });
   }
   ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
