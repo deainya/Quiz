@@ -82,6 +82,7 @@ async function sendMedia(chat_id, arr) {
         } else if (arr[i].type == 'document') {
             await bot.telegram.sendDocument(chat_id, yc + arr[i].name, [{disable_notification: true}]);
         }
+        console.log(chat_id, yc + arr[i].name);
     }
 }
 
