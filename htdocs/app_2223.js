@@ -1,9 +1,9 @@
 // Подключаем библиотеки и внешние скрипты
 const config = require('./config');
 const data = require('./data_2223');
-//const try1 = data.left_try;
-//const try2 = data.last_try;
-//const try3 = data.done_try;
+const try1 = data.left_try;
+const try2 = data.last_try;
+const try3 = data.done_try;
 
 const { Telegraf } = require('telegraf');
 const { Extra, Markup } = Telegraf;
@@ -218,10 +218,10 @@ bot.on('text', async (ctx) => {
                 let chk1 = data.conds[stp].answer.includes(txt);
                 let chk2 = data.conds[stp].tryouts == 0;
                 let chk3 = txt.substr(0, 1) == '!';
-                var stp19 = stp == 19;
+                //var stp19 = stp == 19;
                 if (chk1 && chk2) {
                     //Вывод следующего задания
-                    if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
+                    //if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 } else if (chk1) {
                     //Верный ответ
