@@ -230,7 +230,7 @@ bot.on('text', async (ctx) => {
                             stp = nextStep(qRs[i], true);
                             //globe++;
                             //if (stp <= globe) {}
-                            await ctx.replyWithMarkdown(data.tasks[stp]);
+                            //await ctx.replyWithMarkdown(data.tasks[stp]);
                         }
                     } else {
                         if (qRs[i].a[stp].includes(txt)) { await ctx.replyWithMarkdown(try3, {reply_to_message_id : m}); }
@@ -245,7 +245,7 @@ bot.on('text', async (ctx) => {
                                 stp = nextStep(qRs[i], true);
                                 //globe++;
                                 //if (stp <= globe) {}
-                                await ctx.replyWithMarkdown(data.tasks[stp]);
+                                //await ctx.replyWithMarkdown(data.tasks[stp]);
                             }
                         }
                     }
@@ -260,7 +260,7 @@ bot.on('text', async (ctx) => {
                         stp = nextStep(qRs[i], true);
                         //globe++;
                         //if (stp <= globe) {}
-                        await ctx.replyWithMarkdown(data.tasks[stp]);
+                        //await ctx.replyWithMarkdown(data.tasks[stp]);
                     }
                 }
             }
