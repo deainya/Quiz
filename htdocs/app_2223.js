@@ -213,6 +213,7 @@ bot.on('text', async (ctx) => {
                             await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                             qRs[i].ok++;
                             stp = nextStep(qRs[i], true);
+                            await sendMedia(c.id, data.images[stp]);
                             await ctx.replyWithMarkdown(data.tasks[stp]);
                         }
                     } else {
@@ -226,6 +227,7 @@ bot.on('text', async (ctx) => {
                             else {
                                 await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try2, {reply_to_message_id : m});
                                 stp = nextStep(qRs[i], true);
+                                await sendMedia(c.id, data.images[stp]);
                                 await ctx.replyWithMarkdown(data.tasks[stp]);
                             }
                         }
@@ -239,6 +241,7 @@ bot.on('text', async (ctx) => {
                     else {
                         await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
                         stp = nextStep(qRs[i], true);
+                        await sendMedia(c.id, data.images[stp]);
                         await ctx.replyWithMarkdown(data.tasks[stp]);
                     }
                 }
