@@ -87,15 +87,11 @@ async function sendMedia(chat_id, arr) {
 
 // Реакция на must have команды
 bot.start((ctx) => {
-    ctx.replyWithMarkdown('Приветик!');
+    ctx.replyWithMarkdown('Приветик! Это команда start. ');
 })
 bot.help((ctx) => {
     //ctx.replyWithMarkdown(data.tasks[0]);
-    ctx.replyWithMarkdown('А вот и помощь!');
-})
-bot.command('messageit', (ctx) => {
-    bot.telegram.sendMessage(5291523486, 'Отличная работа! Ты играл как боженька! Красивая игра и второе место в общем рейтинге из 94 участников. Напиши, пожалуйста, Асе Губайдуллиной в Teams (или @deainya в Telegram), чтобы забрать свой подарок!', { parse_mode: "Markdown" });
-    ctx.reply('Сообщение отправлено Retrum');
+    ctx.replyWithMarkdown('Помощь? Это команда help');
 })
 
 // Подсчёт результатов
@@ -104,14 +100,14 @@ bot.command('score', (ctx) => {
     var i = chats.indexOf(c.id);
 
     if (i == -1) {
-        ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
+        ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nВ этом чате нет подсчёта очков :)'`);
     } else {
         let total = 0;
         for (var j = 0; j < qRs[i].pts.length; j++) {
             if (qRs[i].pts[j] > 0) {
                 if (qRs[i].trys[j] == 1) {total = total + qRs[i].pts[j];}
-                else if (qRs[i].trys[j] == 2) {total = total + qRs[i].pts[j] - 25;}
-                else if (qRs[i].trys[j] == 3) {total = total + qRs[i].pts[j] - 50;}
+                else if (qRs[i].trys[j] == 2) {total = total + qRs[i].pts[j] - 1;}
+                else if (qRs[i].trys[j] == 3) {total = total + qRs[i].pts[j] - 2;}
             }
         }
         ctx.reply(total);
@@ -163,7 +159,7 @@ bot.command('quizit', async (ctx) => {
       .catch(err => console.error(err));
 
       qRs.push({
-          chat: chats[i],
+          chat: chats[i], user: c,
           step: stp, ok: 0, t1: [Date.now()], t2: [],
           a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
           trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -174,18 +170,6 @@ bot.command('quizit', async (ctx) => {
       await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "Markdown" });
   }
   ctx.reply('Привет...\nКлюч на старт и от винта!');
-})
-bot.command('quizitknowit', (ctx) => {
-    for (var i = 0; i < qRs.length; i++) {
-        if (qRs[i].step == globe + 1) {
-            bot.telegram.sendMessage(qRs[i].chat, data.tasks[qRs[i].step], { parse_mode: "Markdown" });
-        }
-        //console.log(qRs[i]);
-    }
-    if (globe == 11 || globe == 16) {globe++; globe++; globe++;}
-    else if (globe == 14) {globe++; globe++;}
-    else {globe++;}
-    ctx.reply('Номер доступного сейчас шага ' + globe.toString());
 })
 
 // Реакция на текстовые сообщения
