@@ -193,6 +193,7 @@ bot.on('text', async (ctx) => {
                     //Вывод следующего задания
                     //if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
                     stp = nextStep(qRs[i], true);
+                    await sendMedia(c.id, data.images[stp]);
                     await ctx.replyWithMarkdown(data.tasks[stp]);
                 } else if (chk1) {
                     //Верный ответ
