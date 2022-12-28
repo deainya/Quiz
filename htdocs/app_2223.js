@@ -123,8 +123,8 @@ bot.command('scoreit', async (ctx) => {
         for (var j = 0; j < qRs[i].pts.length; j++) {
             if (qRs[i].pts[j] > 0) {
                 if (qRs[i].trys[j] == 1) {qRs[i].total = qRs[i].total + qRs[i].pts[j];}
-                else if (qRs[i].trys[j] == 2) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 25;}
-                else if (qRs[i].trys[j] == 3) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 50;}
+                else if (qRs[i].trys[j] == 2) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 1;}
+                else if (qRs[i].trys[j] == 3) {qRs[i].total = qRs[i].total + qRs[i].pts[j] - 2;}
             }
         }
         score.push({id: qRs[i].chat, u: qRs[i].user, t: qRs[i].total});
@@ -139,7 +139,7 @@ bot.command('scoreit', async (ctx) => {
     console.log(score);
     var msg = '';
     for (var i = 0; i < score.length; i++) {
-        msg = msg + score[i].t.toString() + ' - ' + score[i].u.username + ' ' + score[i].u.first_name + ' ' + score[i].u.second_name + '\n';
+        msg = msg + score[i].t.toString() + ' - ' + score[i].u + '\n';
         if (i%25 == 0) {
             await ctx.reply(msg);
             msg = '';
@@ -157,7 +157,6 @@ bot.command('quizit', async (ctx) => {
       await bot.telegram.getChat(chats[i])
       .then(chat => chat_title = chat.title)
       .catch(err => console.error(err));
-
       qRs.push({
           chat: chats[i], user: chat_title,
           step: stp, ok: 0, t1: [Date.now()], t2: [],
@@ -166,6 +165,7 @@ bot.command('quizit', async (ctx) => {
           pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           total: 0
       });
+      qRs[i].t1.push(Date.now());
       await sendMedia(chats[i], data.images[stp]);
       await bot.telegram.sendMessage(chats[i], data.tasks[stp], { parse_mode: "Markdown" });
   }
