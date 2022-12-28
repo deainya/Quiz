@@ -14,7 +14,7 @@ const chats = config.chats;
 const yc = config.yc;
 
 // Объявляем переменные
-var chats = [];
+//var chats = [];
 var qRs = [];
 var globe = 1;
 
