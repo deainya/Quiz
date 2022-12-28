@@ -164,7 +164,7 @@ bot.command('scoreit', async (ctx) => {
     }
     await ctx.reply(msg);
 })
-bot.command('quizitit', (ctx) => {
+bot.command('quizitit', async (ctx) => {
   var c = ctx.message.chat;
   console.log(c);
   var stp = 0;
