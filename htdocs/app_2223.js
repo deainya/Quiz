@@ -180,7 +180,7 @@ bot.on('text', async (ctx) => {
     var i = chats.indexOf(c.id);
 
     if (i == -1) {
-        ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nДобро пожаловать на ДИТ challenge! Вводи команду *\/start*`);
+        ctx.replyWithMarkdown(`Привет, *${ctx.message.chat.first_name}*!\nЭто не те дроиды, что ты ищешь :)`);
     } else {
         var stp = qRs[i].step;
             if (stp < data.tasks.length-1) {
