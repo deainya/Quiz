@@ -159,7 +159,7 @@ bot.command('quizit', async (ctx) => {
       .catch(err => console.error(err));
 
       qRs.push({
-          chat: chats[i], user: c,
+          chat: chats[i], user: chat_title,
           step: stp, ok: 0, t1: [Date.now()], t2: [],
           a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[]],
           trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
