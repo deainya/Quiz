@@ -85,6 +85,11 @@ async function sendMedia(chat_id, arr) {
     }
 }
 
+// Реакция на новых пользователей в группе
+bot.on('new_chat_members', (ctx) => {
+    console.log(ctx.message.new_chat_members);
+    ctx.replyWithMarkdown(`Привет, *${ctx.message.new_chat_members[0].first_name}*!\nДобро пожаловать в чат вашей команды!`);
+})
 // Реакция на must have команды
 bot.start((ctx) => {
     ctx.replyWithMarkdown('Приветик! Это команда start. ');
@@ -93,7 +98,10 @@ bot.help((ctx) => {
     //ctx.replyWithMarkdown(data.tasks[0]);
     ctx.replyWithMarkdown('Помощь? Это команда help');
 })
-
+// Команда чтобы узнать id чата или группы
+bot.command('chatit', (ctx) => {
+    ctx.reply(ctx.message.chat);
+})
 // Команда подсчёта результатов для игроков
 bot.command('score', (ctx) => {
     var c = ctx.message.chat;
