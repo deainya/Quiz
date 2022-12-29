@@ -14,9 +14,9 @@ const chats = config.chats;
 const yc = config.yc;
 
 // Объявляем переменные
-//var chats = [];
+//var chats = []; // Эта переменная нужна для варианты с персональными чатами с ботом, заполняется динамически
+var globe = 1; // Эта переменная использовалась для выдачи вопросов по 1 или 2 в день
 var qRs = [];
-var globe = 1;
 
 //Timer
 function myFunc(arg) {
@@ -94,7 +94,7 @@ bot.help((ctx) => {
     ctx.replyWithMarkdown('Помощь? Это команда help');
 })
 
-// Подсчёт результатов
+// Команда подсчёта результатов для игроков
 bot.command('score', (ctx) => {
     var c = ctx.message.chat;
     var i = chats.indexOf(c.id);
@@ -113,6 +113,7 @@ bot.command('score', (ctx) => {
         ctx.reply(total);
     }
 })
+// Команда подсчёта результатов для ведущих
 bot.command('scoreit', async (ctx) => {
     //Evaluating scores per each chat & user
     console.log(qRs);
@@ -147,6 +148,7 @@ bot.command('scoreit', async (ctx) => {
     }
     await ctx.reply(msg);
 })
+// Команда запуска Квиза. Очищается переменная со структурой массива ответов и выводится стартовое сообщение
 bot.command('quizit', async (ctx) => {
   var c = ctx.message.chat;
   console.log(c);
@@ -178,7 +180,6 @@ bot.command('quizit', async (ctx) => {
   }
   ctx.reply('Привет...\nКлюч на старт и от винта!');
 })
-
 // Реакция на текстовые сообщения
 bot.on('text', async (ctx) => {
     var c = ctx.message.chat;
@@ -208,7 +209,8 @@ bot.on('text', async (ctx) => {
                         //Фиксируем ответ
                         qRs[i].a[stp].push(txt);
                         //Начисляем очки
-                        qRs[i].pts[stp] = data.conds[stp].points;
+                        //qRs[i].pts[stp] = data.conds[stp].points;
+                        qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
                         //Фиксируем попытки
                         qRs[i].trys[stp]++;
                         let trs = data.conds[stp].tryouts-qRs[i].trys[stp];
@@ -252,10 +254,26 @@ bot.on('text', async (ctx) => {
                     }
                 }
             }
-
-
     }
 
+})
+// Реакция на фото
+bot.on('photo', async (ctx) => {
+    var c = ctx.message.chat;
+    var m = ctx.message.message_id;
+    var i = chats.indexOf(c.id);
+    var stp = qRs[i].step;
+    var stp62 = stp == 62;
+    //Хардкод. Вопрос 62 с получением фото от пользователей
+    if (stp62) {
+        //qRs[i].pts[stp] = data.conds[stp].points;
+        qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
+        //await ctx.replyWithMarkdown('*'+data.right[getRandom(6, 10)]+'*', {reply_to_message_id : m});
+        if (qRs[i].pts[stp] >= 250) {
+            stp = nextStep(qRs[i], false);
+            await ctx.replyWithMarkdown(data.tasks[stp]);
+        }
+    }
 })
 
 // Ловим ошибки приложеньки
