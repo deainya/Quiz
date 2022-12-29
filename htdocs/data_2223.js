@@ -15,16 +15,16 @@ module.exports = {
       [{type: 'photo', name: 'Рисунок9.png'}], //9
       [{type: 'photo', name: 'Рисунок10.png'}], //10
       [{type: 'photo', name: 'Рисунок11.png'}], //11
-      [{type: 'document', name: '1.mp3'}], //12
-      [{type: 'document', name: '2.mp3'}], //13
-      [{type: 'document', name: '3.mp3'}], //14
-      [{type: 'document', name: '4.mp3'}], //15
-      [{type: 'document', name: '5.mp3'}], //16
-      [{type: 'document', name: '6.mp3'}], //17
-      [{type: 'document', name: '7.mp3'}], //18
-      [{type: 'document', name: '8.mp3'}], //19
-      [{type: 'document', name: '9.mp3'}], //20
-      [{type: 'document', name: '10.mp3'}], //21
+      [{type: 'document', name: 'a1.mp3'}], //12
+      [{type: 'document', name: 'a2.mp3'}], //13
+      [{type: 'document', name: 'a3.mp3'}], //14
+      [{type: 'document', name: 'a4.mp3'}], //15
+      [{type: 'document', name: 'a5.mp3'}], //16
+      [{type: 'document', name: 'a6.mp3'}], //17
+      [{type: 'document', name: 'a7.mp3'}], //18
+      [{type: 'document', name: 'a8.mp3'}], //19
+      [{type: 'document', name: 'a9.mp3'}], //20
+      [{type: 'document', name: 'a10.mp3'}], //21
       [{type: 'photo', name: 'Рисунок12.png'}], //22
       [{type: 'photo', name: 'Рисунок13.png'}], //23
       [{type: 'photo', name: 'Рисунок14.png'}], //24
