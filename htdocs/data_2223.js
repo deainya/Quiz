@@ -66,7 +66,7 @@ module.exports = {
       [], //60
       [], //61
       [], //62
-      [[{type: 'photo', name: 'Final.png'}] //63
+      [{type: 'photo', name: 'Final.png'}] //63
     ],
     tasks: [
         //0
