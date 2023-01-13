@@ -32,7 +32,7 @@ module.exports = {
       [], //26
       [{type: 'photo', name: 'Рисунок16.png'}], //27
       [], //28
-      [{type: 'photo', name: 'Рисунок17.png'}], //29
+      [{type: 'photo', name: 'Рисунок17.jpg'}], //29
       [], //30
       [], //31
       [], //32
@@ -55,7 +55,7 @@ module.exports = {
       [{type: 'photo', name: 'Рисунок24.png'}], //49
       [{type: 'photo', name: 'Рисунок25.png'}], //50
       [{type: 'photo', name: 'Рисунок26.png'}], //51
-      [{type: 'photo', name: 'Рисунок17.png'}], //52
+      [{type: 'photo', name: 'Рисунок17.jpg'}], //52
       [], //53
       [], //54
       [], //55
