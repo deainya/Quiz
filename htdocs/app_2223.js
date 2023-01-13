@@ -172,14 +172,14 @@ bot.command('quizit', async (ctx) => {
           step: stp, ok: 0, t1: [Date.now()], t2: [],
           a: [[],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[],
               [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[], [],[],[],[],[],
-              [],[],[]
+              [],[],[],[]
              ],
           trys: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                  0, 0, 0 ],
+                  0, 0, 0, 0 ],
           pts:  [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                  0, 0, 0 ],
+                  0, 0, 0, 0 ],
           total: 0
       });
       qRs[i].t1.push(Date.now());
@@ -201,7 +201,7 @@ bot.on('text', async (ctx) => {
         var stp = qRs[i].step;
             if (stp < data.tasks.length-1) {
                 //chk = (qRs[i].answer).test(txt);
-                let chk1 = data.conds[stp].answer.includes(txt);
+                let chk1 = data.conds[stp].answer.includes(txt); //Добавить проверку нескольких ответов
                 let chk2 = data.conds[stp].tryouts == 0;
                 let chk3 = txt.substr(0, 1) == '!';
                 //var stp19 = stp == 19;
@@ -209,8 +209,8 @@ bot.on('text', async (ctx) => {
                     //Вывод следующего задания
                     //if (stp19) {stp = nextStep(qRs[i], false);} else {stp = nextStep(qRs[i], true);} //Hardcode
                     stp = nextStep(qRs[i], true);
-                    await ctx.replyWithMarkdown(data.tasks[stp]);
                     await sendMedia(c.id, data.images[stp]);
+                    await ctx.replyWithMarkdown(data.tasks[stp]);
                 } else if (chk1) {
                     //Верный ответ
                     if (!qRs[i].a[stp].includes(txt)) {
@@ -229,8 +229,8 @@ bot.on('text', async (ctx) => {
                             await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                             qRs[i].ok++;
                             stp = nextStep(qRs[i], true);
-                            await ctx.replyWithMarkdown(data.tasks[stp]);
                             await sendMedia(c.id, data.images[stp]);
+                            await ctx.replyWithMarkdown(data.tasks[stp]);
                         }
                     } else {
                         if (qRs[i].a[stp].includes(txt)) { await ctx.replyWithMarkdown(try3, {reply_to_message_id : m}); }
@@ -243,8 +243,8 @@ bot.on('text', async (ctx) => {
                             else {
                                 await ctx.replyWithMarkdown('*' + data.wrong[getRandom(0, 6)] + '*\n' + try2, {reply_to_message_id : m});
                                 stp = nextStep(qRs[i], true);
-                                await ctx.replyWithMarkdown(data.tasks[stp]);
                                 await sendMedia(c.id, data.images[stp]);
+                                await ctx.replyWithMarkdown(data.tasks[stp]);
                             }
                         }
                     }
@@ -257,8 +257,8 @@ bot.on('text', async (ctx) => {
                     else {
                         await ctx.replyWithMarkdown('*'+data.wrong[getRandom(0, 6)]+'*\n' + try2, {reply_to_message_id : m});
                         stp = nextStep(qRs[i], true);
-                        await ctx.replyWithMarkdown(data.tasks[stp]);
                         await sendMedia(c.id, data.images[stp]);
+                        await ctx.replyWithMarkdown(data.tasks[stp]);
                     }
                 }
             }
@@ -277,8 +277,9 @@ bot.on('photo', async (ctx) => {
         //qRs[i].pts[stp] = data.conds[stp].points;
         qRs[i].pts[stp] = qRs[i].pts[stp] + data.conds[stp].points;
         //await ctx.replyWithMarkdown('*'+data.right[getRandom(6, 10)]+'*', {reply_to_message_id : m});
-        if (qRs[i].pts[stp] >= 250) {
+        if (qRs[i].pts[stp] >= 50) {
             stp = nextStep(qRs[i], false);
+            await sendMedia(c.id, data.images[stp]);
             await ctx.replyWithMarkdown(data.tasks[stp]);
         }
     }
