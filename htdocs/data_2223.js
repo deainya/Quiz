@@ -1,6 +1,11 @@
 module.exports = {
     ok: [ 'r01.mp4','r02.mp4','r03.mp4','r04.mp4','r05.mp4','r06.mp4','r07.mp4','r08.mp4',
-          'r09.gif','r10.gif','r11.gif','r12.gif','r13.gif','r14.gif','r15.gif','r16.gif','r17.gif','r18.gif'],
+          'r09.gif','r10.gif','r11.gif','r12.gif','r13.gif','r14.gif','r15.gif','r16.gif','r17.gif','r18.gif',
+          'r01.mp4','r02.mp4','r03.mp4','r04.mp4','r05.mp4','r06.mp4','r07.mp4','r08.mp4',
+          'r09.gif','r10.gif','r11.gif','r12.gif','r13.gif','r14.gif','r15.gif','r16.gif','r17.gif','r18.gif',
+          'r01.mp4','r02.mp4','r03.mp4','r04.mp4','r05.mp4','r06.mp4','r07.mp4','r08.mp4',
+          'r09.gif','r10.gif','r11.gif','r12.gif','r13.gif','r14.gif','r15.gif','r16.gif','r17.gif','r18.gif'
+    ],
     nok: [],
     images: [
       [{type: 'photo', name: 'Рисунок1.png'}], //0
