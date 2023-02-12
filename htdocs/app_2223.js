@@ -13,6 +13,9 @@ const bot = new Telegraf(config.bot_token);
 const chats = config.chats;
 const yc = config.yc;
 
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+//await delay(1000) // waiting 1 second
+
 // Объявляем переменные
 //var chats = []; // Эта переменная нужна для варианты с персональными чатами с ботом, заполняется динамически
 var globe = 1; // Эта переменная использовалась для выдачи вопросов по 1 или 2 в день
@@ -229,6 +232,7 @@ bot.on('text', async (ctx) => {
                             await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                             qRs[i].ok++;
                             stp = nextStep(qRs[i], true);
+                            await delay(500)
                             await sendMedia(c.id, data.images[stp]);
                             await ctx.replyWithMarkdown(data.tasks[stp]);
                         }
