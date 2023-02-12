@@ -232,10 +232,10 @@ bot.on('text', async (ctx) => {
                             await bot.telegram.sendDocument(c.id, yc + data.ok[qRs[i].ok], [{disable_notification: true}]);
                             qRs[i].ok++;
                             stp = nextStep(qRs[i], true);
-                            await delay(500);
+                            await delay(800);
                             await sendMedia(c.id, data.images[stp]);
                             await ctx.replyWithMarkdown(data.tasks[stp]);
-                            await delay(500);
+                            await delay(700);
                         }
 
                     } else {
